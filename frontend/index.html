@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!--begin::Global Theme Styles(used by all pages)-->
+    <link href="assets/metronic/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="assets/metronic/assets/plugins/custom/prismjs/prismjs.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="assets/metronic/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="assets/metronic/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet"
+        type="text/css" />
+
+    <!--begin::Layout Themes(used by all pages)-->
+
+    <link href="assets/metronic/assets/css/themes/layout/header/base/light.css" rel="stylesheet" type="text/css" />
+    <link href="assets/metronic/assets/css/themes/layout/header/menu/light.css" rel="stylesheet" type="text/css" />
+    <link href="assets/metronic/assets/css/themes/layout/brand/dark.css" rel="stylesheet" type="text/css" />
+    <link href="assets/metronic/assets/css/themes/layout/aside/dark.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+
+    <title></title>
+</head>
+
+<body class="tbody" id="theBody">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">MockTrialBallot</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <!-- {% if current_user.is_authenticated %} -->
+    </nav>
+
+    <div class="container">
+        <div class="row" data-sticky-container="">
+            <div class="col-lg-1 col-xl-1 secondary-nav-col">
+                <div class="card card-custom sticky" data-sticky="true" data-margin-top="140px" data-sticky-for="2000"
+                    data-sticky-class="sticky">
+                    <div class="card-body p-0">
+                        <ul class="navi navi-bold navi-hover my-5" role="tablist">
+                            <li class="navi-item">
+                                <a class="navi-link {% if pos==0 %} active {% endif %}" href="index.html">
+                                    <span class="navi-icon">
+                                        <i class="flaticon-customer"></i>
+                                    </span>
+                                    <span class="navi-text">General</span>
+                                </a>
+                            </li>
+                            <!-- {% if is_admin %} -->
+                            <li class="navi-item">
+                                <a class="navi-link {% if pos==1 %} active {% endif %}" href="/judges">
+                                    <span class="navi-icon">
+                                        <i class="flaticon-avatar"></i>
+                                    </span>
+                                    <span class="navi-text"><strike> Judges</strike></span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a class="navi-link {% if pos==2 %} active {% endif %}" href="/teams">
+                                    <span class="navi-icon">
+                                        <i class="flaticon-settings"></i>
+                                    </span>
+                                    <span class="navi-text"><strike> Teams</strike></span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a class="navi-link {% if pos==3 %} active {% endif %}" href="/ballots">
+                                    <span class="navi-icon">
+                                        <i class="flaticon-lock"></i>
+                                    </span>
+                                    <span class="navi-text"><strike> Ballots</strike></span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a class="navi-link {% if pos==4 %} active {% endif %}" href="tabbing_editing.html"
+                                    data-toggle="tooltip" title="" data-placement="right">
+                                    <span class="navi-icon">
+                                        <i class="flaticon-coins"></i>
+                                    </span>
+                                    <span class="navi-text">Tabing</span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a class="navi-link {% if pos==4 %} active {% endif %}" href="/live_ballots"
+                                    data-toggle="tooltip" title="" data-placement="right">
+                                    <span class="navi-icon">
+                                        <i class="flaticon-coins"></i>
+                                    </span>
+                                    <span class="navi-text"><strike> Live Ballots</strike></span>
+                                </a>
+                            </li>
+                            <!-- {% endif %} -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-xl-11 content-col">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card card-event-info gutter-b">
+                            <div class="card-body">
+                                <!--begin::Details-->
+                                <div class="d-flex mb-9">
+                                    <!--begin: Pic-->
+                                    <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
+                                        <div class="symbol symbol-50 symbol-lg-120">
+                                            <img src="https://i.pinimg.com/originals/12/57/f1/1257f17135960b8f05f881010a79b143.jpg"
+                                                alt="image" />
+                                        </div>
+                                        <div class="symbol symbol-50 symbol-lg-120 symbol-primary d-none">
+                                            <span class="font-size-h3 symbol-label font-weight-boldest">JM</span>
+                                        </div>
+                                    </div>
+                                    <!--end::Pic-->
+                                    <!--begin::Info-->
+                                    <div class="flex-grow-1">
+                                        <!--begin::Title-->
+                                        <div class="d-flex justify-content-between flex-wrap mt-1">
+                                            <div class="d-flex mr-3">
+                                                <a href="#"
+                                                    class="text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">Event
+                                                    Name</a>
+                                                <a href="#">
+                                                    <i class="flaticon2-correct text-success font-size-h5"></i>
+                                                </a>
+                                            </div>
+                                            <!-- <div class="my-lg-0 my-3">
+                                                <a href="#" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">ask</a>
+                                                <a href="#" class="btn btn-sm btn-info font-weight-bolder text-uppercase">hire</a>
+                                            </div> -->
+                                        </div>
+                                        <!--end::Title-->
+                                        <!--begin::Content-->
+                                        <div class="d-flex flex-wrap justify-content-between mt-1">
+                                            <div class="d-flex flex-column flex-grow-1 pr-8">
+                                                <div class="d-flex flex-wrap mb-4">
+                                                    <a href="#"
+                                                        class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+                                                        <i
+                                                            class="flaticon2-new-email mr-2 font-size-lg"></i>jason@harvard.edu</a>
+                                                    <a href="#"
+                                                        class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+                                                        <i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>PR
+                                                        Manager</a>
+                                                    <a href="#"
+                                                        class="text-dark-50 text-hover-primary font-weight-bold">
+                                                        <i
+                                                            class="flaticon2-placeholder mr-2 font-size-lg"></i>Online</a>
+                                                </div>
+                                                <span class="font-weight-bold text-dark-50">I distinguish three main
+                                                    text objectives could be merely to inform people.</span>
+                                                <span class="font-weight-bold text-dark-50">A second could be persuade
+                                                    people.You want people to bay objective</span>
+                                            </div>
+                                            <div
+                                                class="d-flex align-items-center w-25 flex-fill float-right mt-lg-12 mt-8">
+                                                <span class="font-weight-bold text-dark-75">Progress Through
+                                                    Event</span>
+                                                <div class="progress progress-xs mx-3 w-100">
+                                                    <div class="progress-bar bg-success" role="progressbar"
+                                                        style="width: 63%;" aria-valuenow="50" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                                </div>
+                                                <span class="font-weight-bolder text-dark">78%</span>
+                                            </div>
+                                        </div>
+                                        <!--end::Content-->
+                                    </div>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::Details-->
+                                <div class="separator separator-solid"></div>
+                                <!--begin::Items-->
+                                <div class="d-flex align-items-center flex-wrap mt-8">
+                                    <!--begin::Item-->
+                                    <!-- <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+                                        <span class="mr-4">
+                                            <i class="flaticon-piggy-bank display-4 text-muted font-weight-bold"></i>
+                                        </span>
+                                        <div class="d-flex flex-column text-dark-75">
+                                            <span class="font-weight-bolder font-size-sm">Earnings</span>
+                                            <span class="font-weight-bolder font-size-h5">
+                                            <span class="text-dark-50 font-weight-bold">$</span>249,500</span>
+                                        </div>
+                                    </div> -->
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <!-- <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+                                        <span class="mr-4">
+                                            <i class="flaticon-confetti display-4 text-muted font-weight-bold"></i>
+                                        </span>
+                                        <div class="d-flex flex-column text-dark-75">
+                                            <span class="font-weight-bolder font-size-sm">Expenses</span>
+                                            <span class="font-weight-bolder font-size-h5">
+                                            <span class="text-dark-50 font-weight-bold">$</span>164,700</span>
+                                        </div>
+                                    </div> -->
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <!-- <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+                                        <span class="mr-4">
+                                            <i class="flaticon-pie-chart display-4 text-muted font-weight-bold"></i>
+                                        </span>
+                                        <div class="d-flex flex-column text-dark-75">
+                                            <span class="font-weight-bolder font-size-sm">Net</span>
+                                            <span class="font-weight-bolder font-size-h5">
+                                            <span class="text-dark-50 font-weight-bold">$</span>782,300</span>
+                                        </div>
+                                    </div> -->
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+                                        <span class="mr-4">
+                                            <i class="flaticon-file-2 display-4 text-muted font-weight-bold"></i>
+                                        </span>
+                                        <div class="d-flex flex-column flex-lg-fill">
+                                            <span class="text-dark-75 font-weight-bolder font-size-sm">23 Teams</span>
+                                            <a href="#" class="text-primary font-weight-bolder">View</a>
+                                        </div>
+                                    </div>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+                                        <span class="mr-4">
+                                            <i class="flaticon-chat-1 display-4 text-muted font-weight-bold"></i>
+                                        </span>
+                                        <div class="d-flex flex-column">
+                                            <span class="text-dark-75 font-weight-bolder font-size-sm">40 Ballots</span>
+                                            <a href="#" class="text-primary font-weight-bolder">View</a>
+                                        </div>
+                                    </div>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+                                        <span class="mr-4">
+                                            <i class="flaticon-network display-4 text-muted font-weight-bold"></i>
+                                        </span>
+                                        <div class="d-flex flex-column">
+                                            <span class="text-dark-75 font-weight-bolder font-size-sm">14 Schools</span>
+                                            <a href="#" class="text-primary font-weight-bolder">View</a>
+                                        </div>
+                                    </div>
+                                    <!--end::Item-->
+
+                                </div>
+                                <!--begin::Items-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card card-event-schedule">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">
+                                        Event Schedule
+                                    </h3>
+                                </div>
+                                <div class="card-toolbar">
+                                    <a href="#" class="btn btn-light-primary font-weight-bold" data-toggle="modal"
+                                        data-target="#newEventModal">
+                                        <i class="ki ki-plus "></i>Add Event
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="kt_calendar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card card card-custom card-stretch gutter-b card-event-top-teams">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">
+                                        Top Teams</h3>
+                                </div>
+
+                            </div>
+                            <!--begin::Body-->
+                            <div class="card-body pt-2">
+                                <!--begin::Item-->
+                                <div class="d-flex flex-wrap align-items-center mb-10">
+                                    <!--begin::Symbol-->
+                                    <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
+                                        <div class="symbol-label"
+                                            style="background-image: url('https://news.psu.edu/sites/default/files/styles/threshold-992/public/Athletics.jpg?itok=zB2q81P2')">
+                                        </div>
+                                    </div>
+                                    <!--end::Symbol-->
+                                    <!--begin::Title-->
+                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 mr-2">
+                                        <a href="#"
+                                            class="text-dark-75 font-weight-bold text-hover-primary font-size-lg mb-1">Pennstate
+                                            A</a>
+                                        <span class="text-muted font-weight-bold">Wins: 2 Losses: 1 Ties: 1</span>
+                                    </div>
+                                    <!--end::Title-->
+                                    <!--begin::Section-->
+                                    <div class="d-flex align-items-center mt-lg-0 mt-3">
+                                        <!--begin::Label-->
+                                        <div class="mr-6">
+                                            <i class="fa fa-star mr-1 text-warning font-size-lg"></i>
+                                            <span class="text-dark-75 font-weight-bolder">1</span>
+                                        </div>
+                                        <!--end::Label-->
+                                        <!--begin::Btn-->
+                                        <a href="team_view.html" class="btn btn-icon btn-light btn-sm">
+                                            <span class="svg-icon svg-icon-success">
+                                                <span class="svg-icon svg-icon-md">
+                                                    <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                        height="24px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                            fill-rule="evenodd">
+                                                            <polygon points="0 0 24 0 24 24 0 24" />
+                                                            <rect fill="#000000" opacity="0.3"
+                                                                transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
+                                                                x="11" y="5" width="2" height="14" rx="1" />
+                                                            <path
+                                                                d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                                                                fill="#000000" fill-rule="nonzero"
+                                                                transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)" />
+                                                        </g>
+                                                    </svg>
+                                                    <!--end::Svg Icon-->
+                                                </span>
+                                            </span>
+                                        </a>
+                                        <!--end::Btn-->
+                                    </div>
+                                    <!--end::Section-->
+                                </div>
+                                <!--end::Item-->
+                                <!--begin::Item-->
+                                <div class="d-flex flex-wrap align-items-center mb-10">
+                                    <!--begin::Symbol-->
+                                    <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
+                                        <div class="symbol-label"
+                                            style="background-image: url('https://www.kaplanpathways.com/wp-content/uploads/2018/09/new-partnership-arizona-state-university-feature-block.png')">
+                                        </div>
+                                    </div>
+                                    <!--end::Symbol-->
+                                    <!--begin::Title-->
+                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 mr-2">
+                                        <a href="#"
+                                            class="text-dark-75 font-weight-bold text-hover-primary font-size-lg mb-1">Arizona
+                                            State 2</a>
+                                        <span class="text-muted font-weight-bold">Wins: 2 Losses: 1 Ties: 1</span>
+                                    </div>
+                                    <!--end::Title-->
+                                    <!--begin::Section-->
+                                    <div class="d-flex align-items-center mt-lg-0 mt-3">
+                                        <!--begin::Label-->
+                                        <div class="mr-6">
+                                            <i class="fa fa-star mr-1 text-warning font-size-lg"></i>
+                                            <span class="text-dark-75 font-weight-bolder">2</span>
+                                        </div>
+                                        <!--end::Label-->
+                                        <!--begin::Btn-->
+                                        <a href="#" class="btn btn-icon btn-light btn-sm">
+                                            <span class="svg-icon svg-icon-success">
+                                                <span class="svg-icon svg-icon-md">
+                                                    <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                        height="24px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                            fill-rule="evenodd">
+                                                            <polygon points="0 0 24 0 24 24 0 24" />
+                                                            <rect fill="#000000" opacity="0.3"
+                                                                transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
+                                                                x="11" y="5" width="2" height="14" rx="1" />
+                                                            <path
+                                                                d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                                                                fill="#000000" fill-rule="nonzero"
+                                                                transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)" />
+                                                        </g>
+                                                    </svg>
+                                                    <!--end::Svg Icon-->
+                                                </span>
+                                            </span>
+                                        </a>
+                                        <!--end::Btn-->
+                                    </div>
+                                    <!--end::Section-->
+                                </div>
+                                <!--end::Item-->
+                                <!--begin::Item-->
+                                <div class="d-flex flex-wrap align-items-center mb-10">
+                                    <!--begin::Symbol-->
+                                    <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
+                                        <div class="symbol-label"
+                                            style="background-image: url('https://news.psu.edu/sites/default/files/styles/threshold-992/public/Athletics.jpg?itok=zB2q81P2')">
+                                        </div>
+                                    </div>
+                                    <!--end::Symbol-->
+                                    <!--begin::Title-->
+                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 mr-2">
+                                        <a href="#"
+                                            class="text-dark-75 font-weight-bold text-hover-primary font-size-lg mb-1">Pennstate
+                                            B</a>
+                                        <span class="text-muted font-weight-bold">Wins: 2 Losses: 1 Ties: 1</span>
+                                    </div>
+                                    <!--end::Title-->
+                                    <!--begin::Section-->
+                                    <div class="d-flex align-items-center mt-lg-0 mt-3">
+                                        <!--begin::Label-->
+                                        <div class="mr-6">
+                                            <i class="fa fa-star mr-1 text-warning font-size-lg"></i>
+                                            <span class="text-dark-75 font-weight-bolder">3</span>
+                                        </div>
+                                        <!--end::Label-->
+                                        <!--begin::Btn-->
+                                        <a href="team_view.html" class="btn btn-icon btn-light btn-sm">
+                                            <span class="svg-icon svg-icon-success">
+                                                <span class="svg-icon svg-icon-md">
+                                                    <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                        height="24px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                            fill-rule="evenodd">
+                                                            <polygon points="0 0 24 0 24 24 0 24" />
+                                                            <rect fill="#000000" opacity="0.3"
+                                                                transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
+                                                                x="11" y="5" width="2" height="14" rx="1" />
+                                                            <path
+                                                                d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                                                                fill="#000000" fill-rule="nonzero"
+                                                                transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)" />
+                                                        </g>
+                                                    </svg>
+                                                    <!--end::Svg Icon-->
+                                                </span>
+                                            </span>
+                                        </a>
+                                        <!--end::Btn-->
+                                    </div>
+                                    <!--end::Section-->
+                                </div>
+                                <!--end::Item-->
+                                <!--begin: Item-->
+                                <div class="d-flex flex-wrap align-items-center mb-10">
+                                    <!--begin::Symbol-->
+                                    <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
+                                        <div class="symbol-label"
+                                            style="background-image: url('https://d92mrp7hetgfk.cloudfront.net/images/sites/misc/new_york_u-1/standard.png?1548463848')">
+                                        </div>
+                                    </div>
+                                    <!--end::Symbol-->
+                                    <!--begin::Title-->
+                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 mr-2">
+                                        <a href="#"
+                                            class="text-dark-75 font-weight-bold text-hover-primary font-size-lg mb-1">New
+                                            York
+                                            Boomers</a>
+                                        <span class="text-muted font-weight-bold">Wins: 2 Losses: 1 Ties: 1</span>
+                                    </div>
+                                    <!--end::Title-->
+                                    <!--begin::Section-->
+                                    <div class="d-flex align-items-center mt-lg-0 mt-3">
+                                        <!--begin::Label-->
+                                        <div class="mr-6">
+                                            <i class="fa fa-star mr-1 text-warning font-size-lg"></i>
+                                            <span class="text-dark-75 font-weight-bolder">4</span>
+                                        </div>
+                                        <!--end::Label-->
+                                        <!--begin::Btn-->
+                                        <a href="team_view.html" class="btn btn-icon btn-light btn-sm">
+                                            <span class="svg-icon svg-icon-success">
+                                                <span class="svg-icon svg-icon-md">
+                                                    <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                        height="24px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                            fill-rule="evenodd">
+                                                            <polygon points="0 0 24 0 24 24 0 24" />
+                                                            <rect fill="#000000" opacity="0.3"
+                                                                transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
+                                                                x="11" y="5" width="2" height="14" rx="1" />
+                                                            <path
+                                                                d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                                                                fill="#000000" fill-rule="nonzero"
+                                                                transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)" />
+                                                        </g>
+                                                    </svg>
+                                                    <!--end::Svg Icon-->
+                                                </span>
+                                            </span>
+                                        </a>
+                                        <!--end::Btn-->
+                                    </div>
+                                    <!--end::Section-->
+                                </div>
+                                <!--end::Item-->
+                                <!--end::Items-->
+                                <!--begin::Item-->
+                                <div class="d-flex flex-wrap align-items-center mb-10">
+                                    <!--begin::Symbol-->
+                                    <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
+                                        <div class="symbol-label"
+                                            style="background-image: url('https://news.psu.edu/sites/default/files/styles/threshold-992/public/Athletics.jpg?itok=zB2q81P2')">
+                                        </div>
+                                    </div>
+                                    <!--end::Symbol-->
+                                    <!--begin::Title-->
+                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 mr-2">
+                                        <a href="#"
+                                            class="text-dark-75 font-weight-bold text-hover-primary font-size-lg mb-1">Pennstate
+                                            A</a>
+                                        <span class="text-muted font-weight-bold">Wins: 2 Losses: 1 Ties: 1</span>
+                                    </div>
+                                    <!--end::Title-->
+                                    <!--begin::Section-->
+                                    <div class="d-flex align-items-center mt-lg-0 mt-3">
+                                        <!--begin::Label-->
+                                        <div class="mr-6">
+                                            <i class="fa fa-star mr-1 text-warning font-size-lg"></i>
+                                            <span class="text-dark-75 font-weight-bolder">5</span>
+                                        </div>
+                                        <!--end::Label-->
+                                        <!--begin::Btn-->
+                                        <a href="team_view.html" class="btn btn-icon btn-light btn-sm">
+                                            <span class="svg-icon svg-icon-success">
+                                                <span class="svg-icon svg-icon-md">
+                                                    <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                        height="24px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                            fill-rule="evenodd">
+                                                            <polygon points="0 0 24 0 24 24 0 24" />
+                                                            <rect fill="#000000" opacity="0.3"
+                                                                transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
+                                                                x="11" y="5" width="2" height="14" rx="1" />
+                                                            <path
+                                                                d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                                                                fill="#000000" fill-rule="nonzero"
+                                                                transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)" />
+                                                        </g>
+                                                    </svg>
+                                                    <!--end::Svg Icon-->
+                                                </span>
+                                            </span>
+                                        </a>
+                                        <!--end::Btn-->
+                                    </div>
+                                    <!--end::Section-->
+                                </div>
+                                <!--end::Item-->
+                                <!--begin::Item-->
+                                <div class="d-flex flex-wrap align-items-center mb-10">
+                                    <!--begin::Symbol-->
+                                    <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
+                                        <div class="symbol-label"
+                                            style="background-image: url('https://www.kaplanpathways.com/wp-content/uploads/2018/09/new-partnership-arizona-state-university-feature-block.png')">
+                                        </div>
+                                    </div>
+                                    <!--end::Symbol-->
+                                    <!--begin::Title-->
+                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 mr-2">
+                                        <a href="#"
+                                            class="text-dark-75 font-weight-bold text-hover-primary font-size-lg mb-1">Arizona
+                                            State 2</a>
+                                        <span class="text-muted font-weight-bold">Wins: 2 Losses: 1 Ties: 1</span>
+                                    </div>
+                                    <!--end::Title-->
+                                    <!--begin::Section-->
+                                    <div class="d-flex align-items-center mt-lg-0 mt-3">
+                                        <!--begin::Label-->
+                                        <div class="mr-6">
+                                            <i class="fa fa-star mr-1 text-warning font-size-lg"></i>
+                                            <span class="text-dark-75 font-weight-bolder">6</span>
+                                        </div>
+                                        <!--end::Label-->
+                                        <!--begin::Btn-->
+                                        <a href="#" class="btn btn-icon btn-light btn-sm">
+                                            <span class="svg-icon svg-icon-success">
+                                                <span class="svg-icon svg-icon-md">
+                                                    <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                        height="24px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                            fill-rule="evenodd">
+                                                            <polygon points="0 0 24 0 24 24 0 24" />
+                                                            <rect fill="#000000" opacity="0.3"
+                                                                transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
+                                                                x="11" y="5" width="2" height="14" rx="1" />
+                                                            <path
+                                                                d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                                                                fill="#000000" fill-rule="nonzero"
+                                                                transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)" />
+                                                        </g>
+                                                    </svg>
+                                                    <!--end::Svg Icon-->
+                                                </span>
+                                            </span>
+                                        </a>
+                                        <!--end::Btn-->
+                                    </div>
+                                    <!--end::Section-->
+                                </div>
+                                <!--end::Item-->
+                                <!--begin::Item-->
+                                <div class="d-flex flex-wrap align-items-center mb-10">
+                                    <!--begin::Symbol-->
+                                    <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
+                                        <div class="symbol-label"
+                                            style="background-image: url('https://news.psu.edu/sites/default/files/styles/threshold-992/public/Athletics.jpg?itok=zB2q81P2')">
+                                        </div>
+                                    </div>
+                                    <!--end::Symbol-->
+                                    <!--begin::Title-->
+                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 mr-2">
+                                        <a href="#"
+                                            class="text-dark-75 font-weight-bold text-hover-primary font-size-lg mb-1">Pennstate
+                                            B</a>
+                                        <span class="text-muted font-weight-bold">Wins: 2 Losses: 1 Ties: 1</span>
+                                    </div>
+                                    <!--end::Title-->
+                                    <!--begin::Section-->
+                                    <div class="d-flex align-items-center mt-lg-0 mt-3">
+                                        <!--begin::Label-->
+                                        <div class="mr-6">
+                                            <i class="fa fa-star mr-1 text-warning font-size-lg"></i>
+                                            <span class="text-dark-75 font-weight-bolder">7</span>
+                                        </div>
+                                        <!--end::Label-->
+                                        <!--begin::Btn-->
+                                        <a href="team_view.html" class="btn btn-icon btn-light btn-sm">
+                                            <span class="svg-icon svg-icon-success">
+                                                <span class="svg-icon svg-icon-md">
+                                                    <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                        height="24px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                            fill-rule="evenodd">
+                                                            <polygon points="0 0 24 0 24 24 0 24" />
+                                                            <rect fill="#000000" opacity="0.3"
+                                                                transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
+                                                                x="11" y="5" width="2" height="14" rx="1" />
+                                                            <path
+                                                                d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                                                                fill="#000000" fill-rule="nonzero"
+                                                                transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)" />
+                                                        </g>
+                                                    </svg>
+                                                    <!--end::Svg Icon-->
+                                                </span>
+                                            </span>
+                                        </a>
+                                        <!--end::Btn-->
+                                    </div>
+                                    <!--end::Section-->
+                                </div>
+                                <!--end::Item-->
+                                <!--begin: Item-->
+                                <div class="d-flex flex-wrap align-items-center mb-10">
+                                    <!--begin::Symbol-->
+                                    <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
+                                        <div class="symbol-label"
+                                            style="background-image: url('https://d92mrp7hetgfk.cloudfront.net/images/sites/misc/new_york_u-1/standard.png?1548463848')">
+                                        </div>
+                                    </div>
+                                    <!--end::Symbol-->
+                                    <!--begin::Title-->
+                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 mr-2">
+                                        <a href="#"
+                                            class="text-dark-75 font-weight-bold text-hover-primary font-size-lg mb-1">New
+                                            York
+                                            Boomers</a>
+                                        <span class="text-muted font-weight-bold">Wins: 2 Losses: 1 Ties: 1</span>
+                                    </div>
+                                    <!--end::Title-->
+                                    <!--begin::Section-->
+                                    <div class="d-flex align-items-center mt-lg-0 mt-3">
+                                        <!--begin::Label-->
+                                        <div class="mr-6">
+                                            <i class="fa fa-star mr-1 text-warning font-size-lg"></i>
+                                            <span class="text-dark-75 font-weight-bolder">8</span>
+                                        </div>
+                                        <!--end::Label-->
+                                        <!--begin::Btn-->
+                                        <a href="team_view.html" class="btn btn-icon btn-light btn-sm">
+                                            <span class="svg-icon svg-icon-success">
+                                                <span class="svg-icon svg-icon-md">
+                                                    <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                        height="24px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                            fill-rule="evenodd">
+                                                            <polygon points="0 0 24 0 24 24 0 24" />
+                                                            <rect fill="#000000" opacity="0.3"
+                                                                transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
+                                                                x="11" y="5" width="2" height="14" rx="1" />
+                                                            <path
+                                                                d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                                                                fill="#000000" fill-rule="nonzero"
+                                                                transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)" />
+                                                        </g>
+                                                    </svg>
+                                                    <!--end::Svg Icon-->
+                                                </span>
+                                            </span>
+                                        </a>
+                                        <!--end::Btn-->
+                                    </div>
+                                    <!--end::Section-->
+                                </div>
+                                <!--end::Item-->
+                                <!--end::Items-->
+                                <!--begin::Item-->
+                                <div class="d-flex flex-wrap align-items-center mb-10">
+                                    <!--begin::Symbol-->
+                                    <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
+                                        <div class="symbol-label"
+                                            style="background-image: url('https://news.psu.edu/sites/default/files/styles/threshold-992/public/Athletics.jpg?itok=zB2q81P2')">
+                                        </div>
+                                    </div>
+                                    <!--end::Symbol-->
+                                    <!--begin::Title-->
+                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 mr-2">
+                                        <a href="#"
+                                            class="text-dark-75 font-weight-bold text-hover-primary font-size-lg mb-1">Pennstate
+                                            A</a>
+                                        <span class="text-muted font-weight-bold">Wins: 2 Losses: 1 Ties: 1</span>
+                                    </div>
+                                    <!--end::Title-->
+                                    <!--begin::Section-->
+                                    <div class="d-flex align-items-center mt-lg-0 mt-3">
+                                        <!--begin::Label-->
+                                        <div class="mr-6">
+                                            <i class="fa fa-star mr-1 text-warning font-size-lg"></i>
+                                            <span class="text-dark-75 font-weight-bolder">9</span>
+                                        </div>
+                                        <!--end::Label-->
+                                        <!--begin::Btn-->
+                                        <a href="team_view.html" class="btn btn-icon btn-light btn-sm">
+                                            <span class="svg-icon svg-icon-success">
+                                                <span class="svg-icon svg-icon-md">
+                                                    <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                        height="24px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                            fill-rule="evenodd">
+                                                            <polygon points="0 0 24 0 24 24 0 24" />
+                                                            <rect fill="#000000" opacity="0.3"
+                                                                transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
+                                                                x="11" y="5" width="2" height="14" rx="1" />
+                                                            <path
+                                                                d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                                                                fill="#000000" fill-rule="nonzero"
+                                                                transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)" />
+                                                        </g>
+                                                    </svg>
+                                                    <!--end::Svg Icon-->
+                                                </span>
+                                            </span>
+                                        </a>
+                                        <!--end::Btn-->
+                                    </div>
+                                    <!--end::Section-->
+                                </div>
+                                <!--end::Item-->
+                                <!--begin::Item-->
+                                <div class="d-flex flex-wrap align-items-center mb-1">
+                                    <!--begin::Symbol-->
+                                    <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
+                                        <div class="symbol-label"
+                                            style="background-image: url('https://www.kaplanpathways.com/wp-content/uploads/2018/09/new-partnership-arizona-state-university-feature-block.png')">
+                                        </div>
+                                    </div>
+                                    <!--end::Symbol-->
+                                    <!--begin::Title-->
+                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 mr-2">
+                                        <a href="#"
+                                            class="text-dark-75 font-weight-bold text-hover-primary font-size-lg mb-1">Arizona
+                                            State 2</a>
+                                        <span class="text-muted font-weight-bold">Wins: 2 Losses: 1 Ties: 1</span>
+                                    </div>
+                                    <!--end::Title-->
+                                    <!--begin::Section-->
+                                    <div class="d-flex align-items-center mt-lg-0 mt-3">
+                                        <!--begin::Label-->
+                                        <div class="mr-6">
+                                            <i class="fa fa-star mr-1 text-warning font-size-lg"></i>
+                                            <span class="text-dark-75 font-weight-bolder">10</span>
+                                        </div>
+                                        <!--end::Label-->
+                                        <!--begin::Btn-->
+                                        <a href="team_view.html" class="btn btn-icon btn-light btn-sm">
+                                            <span class="svg-icon svg-icon-success">
+                                                <span class="svg-icon svg-icon-md">
+                                                    <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                        height="24px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                            fill-rule="evenodd">
+                                                            <polygon points="0 0 24 0 24 24 0 24" />
+                                                            <rect fill="#000000" opacity="0.3"
+                                                                transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
+                                                                x="11" y="5" width="2" height="14" rx="1" />
+                                                            <path
+                                                                d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                                                                fill="#000000" fill-rule="nonzero"
+                                                                transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)" />
+                                                        </g>
+                                                    </svg>
+                                                    <!--end::Svg Icon-->
+                                                </span>
+                                            </span>
+                                        </a>
+                                        <!--end::Btn-->
+                                    </div>
+                                    <!--end::Section-->
+                                </div>
+                                <!--end::Item-->
+                                <!--end::Items-->
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <div class="col">
+                                <!--begin::List Widget 3-->
+                                <div class="card card-outstanding card-stretch gutter-b">
+                                    <!--begin::Header-->
+                                    <div class="card-header border-0">
+                                        <h3 class="card-title font-weight-bolder text-dark">Outstanding Attorneys</h3>
+                                    </div>
+                                    <!--end::Header-->
+                                    <!--begin::Body-->
+                                    <div class="card-body pt-2">
+                                        <!--begin::Item-->
+                                        <div class="d-flex align-items-center mb-10">
+                                            <!--begin::Symbol-->
+                                            <div class="symbol symbol-40 symbol-light-success mr-5">
+                                                <span class="symbol-label">
+                                                    <img src="assets/media/svg/avatars/009-boy-4.svg"
+                                                        class="h-75 align-self-end" alt="" />
+                                                </span>
+                                            </div>
+                                            <!--end::Symbol-->
+                                            <!--begin::Text-->
+                                            <div class="d-flex flex-column flex-grow-1 font-weight-bold">
+                                                <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">Ricky
+                                                    Hunt</a>
+                                            </div>
+                                            <!--end::Text-->
+                                        </div>
+                                        <!--end::Item-->
+                                        <!--begin::Item-->
+                                        <div class="d-flex align-items-center mb-10">
+                                            <!--begin::Symbol-->
+                                            <div class="symbol symbol-40 symbol-light-success mr-5">
+                                                <span class="symbol-label">
+                                                    <img src="assets/media/svg/avatars/006-girl-3.svg"
+                                                        class="h-75 align-self-end" alt="" />
+                                                </span>
+                                            </div>
+                                            <!--end::Symbol-->
+                                            <!--begin::Text-->
+                                            <div class="d-flex flex-column flex-grow-1 font-weight-bold">
+                                                <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">Anne
+                                                    Clarc</a>
+                                            </div>
+                                            <!--end::Text-->
+                                        </div>
+                                        <!--end::Item-->
+                                        <!--begin::Item-->
+                                        <div class="d-flex align-items-center mb-10">
+                                            <!--begin::Symbol-->
+                                            <div class="symbol symbol-40 symbol-light-success mr-5">
+                                                <span class="symbol-label">
+                                                    <img src="assets/media/svg/avatars/011-boy-5.svg"
+                                                        class="h-75 align-self-end" alt="" />
+                                                </span>
+                                            </div>
+                                            <!--end::Symbol-->
+                                            <!--begin::Text-->
+                                            <div class="d-flex flex-column flex-grow-1 font-weight-bold">
+                                                <a href="#"
+                                                    class="text-dark text-hover-primary mb-1 font-size-lg">Kristaps
+                                                    Zumman</a>
+                                            </div>
+                                            <!--end::Text-->
+                                        </div>
+                                        <!--end::Item-->
+                                        <!--begin::Item-->
+                                        <div class="d-flex align-items-center mb-10">
+                                            <!--begin::Symbol-->
+                                            <div class="symbol symbol-40 symbol-light-success mr-5">
+                                                <span class="symbol-label">
+                                                    <img src="assets/media/svg/avatars/015-boy-6.svg"
+                                                        class="h-75 align-self-end" alt="" />
+                                                </span>
+                                            </div>
+                                            <!--end::Symbol-->
+                                            <!--begin::Text-->
+                                            <div class="d-flex flex-column flex-grow-1 font-weight-bold">
+                                                <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">Ricky
+                                                    Hunt</a>
+                                            </div>
+                                            <!--end::Text-->
+                                        </div>
+                                        <!--end::Item-->
+                                        <!--begin::Item-->
+                                        <div class="d-flex align-items-center mb-2">
+                                            <!--begin::Symbol-->
+                                            <div class="symbol symbol-40 symbol-light-success mr-5">
+                                                <span class="symbol-label">
+                                                    <img src="assets/media/svg/avatars/016-boy-7.svg"
+                                                        class="h-75 align-self-end" alt="" />
+                                                </span>
+                                            </div>
+                                            <!--end::Symbol-->
+                                            <!--begin::Text-->
+                                            <div class="d-flex flex-column flex-grow-1 font-weight-bold">
+                                                <a href="#"
+                                                    class="text-dark text-hover-primary mb-1 font-size-lg">Carles
+                                                    Puyol</a>
+                                            </div>
+                                            <!--end::Text-->
+                                        </div>
+                                        <!--end::Item-->
+                                    </div>
+                                    <!--end::Body-->
+                                </div>
+                                <!--end::List Widget 3-->
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <!--begin::List Widget 3-->
+                                <div class="card card-outstanding card-stretch gutter-b">
+                                    <!--begin::Header-->
+                                    <div class="card-header border-0">
+                                        <h3 class="card-title font-weight-bolder text-dark">Outstanding Witnesses</h3>
+                                    </div>
+                                    <!--end::Header-->
+                                    <!--begin::Body-->
+                                    <div class="card-body pt-2">
+                                        <!--begin::Item-->
+                                        <div class="d-flex align-items-center mb-10">
+                                            <!--begin::Symbol-->
+                                            <div class="symbol symbol-40 symbol-light-success mr-5">
+                                                <span class="symbol-label">
+                                                    <img src="assets/media/svg/avatars/009-boy-4.svg"
+                                                        class="h-75 align-self-end" alt="" />
+                                                </span>
+                                            </div>
+                                            <!--end::Symbol-->
+                                            <!--begin::Text-->
+                                            <div class="d-flex flex-column flex-grow-1 font-weight-bold">
+                                                <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">Ricky
+                                                    Hunt</a>
+                                            </div>
+                                            <!--end::Text-->
+                                        </div>
+                                        <!--end::Item-->
+                                        <!--begin::Item-->
+                                        <div class="d-flex align-items-center mb-10">
+                                            <!--begin::Symbol-->
+                                            <div class="symbol symbol-40 symbol-light-success mr-5">
+                                                <span class="symbol-label">
+                                                    <img src="assets/media/svg/avatars/006-girl-3.svg"
+                                                        class="h-75 align-self-end" alt="" />
+                                                </span>
+                                            </div>
+                                            <!--end::Symbol-->
+                                            <!--begin::Text-->
+                                            <div class="d-flex flex-column flex-grow-1 font-weight-bold">
+                                                <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">Anne
+                                                    Clarc</a>
+                                            </div>
+                                            <!--end::Text-->
+                                        </div>
+                                        <!--end::Item-->
+                                        <!--begin::Item-->
+                                        <div class="d-flex align-items-center mb-10">
+                                            <!--begin::Symbol-->
+                                            <div class="symbol symbol-40 symbol-light-success mr-5">
+                                                <span class="symbol-label">
+                                                    <img src="assets/media/svg/avatars/011-boy-5.svg"
+                                                        class="h-75 align-self-end" alt="" />
+                                                </span>
+                                            </div>
+                                            <!--end::Symbol-->
+                                            <!--begin::Text-->
+                                            <div class="d-flex flex-column flex-grow-1 font-weight-bold">
+                                                <a href="#"
+                                                    class="text-dark text-hover-primary mb-1 font-size-lg">Kristaps
+                                                    Zumman</a>
+                                            </div>
+                                            <!--end::Text-->
+                                        </div>
+                                        <!--end::Item-->
+                                        <!--begin::Item-->
+                                        <div class="d-flex align-items-center mb-10">
+                                            <!--begin::Symbol-->
+                                            <div class="symbol symbol-40 symbol-light-success mr-5">
+                                                <span class="symbol-label">
+                                                    <img src="assets/media/svg/avatars/015-boy-6.svg"
+                                                        class="h-75 align-self-end" alt="" />
+                                                </span>
+                                            </div>
+                                            <!--end::Symbol-->
+                                            <!--begin::Text-->
+                                            <div class="d-flex flex-column flex-grow-1 font-weight-bold">
+                                                <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg">Ricky
+                                                    Hunt</a>
+                                            </div>
+                                            <!--end::Text-->
+                                        </div>
+                                        <!--end::Item-->
+                                        <!--begin::Item-->
+                                        <div class="d-flex align-items-center mb-2">
+                                            <!--begin::Symbol-->
+                                            <div class="symbol symbol-40 symbol-light-success mr-5">
+                                                <span class="symbol-label">
+                                                    <img src="assets/media/svg/avatars/016-boy-7.svg"
+                                                        class="h-75 align-self-end" alt="" />
+                                                </span>
+                                            </div>
+                                            <!--end::Symbol-->
+                                            <!--begin::Text-->
+                                            <div class="d-flex flex-column flex-grow-1 font-weight-bold">
+                                                <a href="#"
+                                                    class="text-dark text-hover-primary mb-1 font-size-lg">Carles
+                                                    Puyol</a>
+                                            </div>
+                                            <!--end::Text-->
+                                        </div>
+                                        <!--end::Item-->
+                                    </div>
+                                    <!--end::Body-->
+                                </div>
+                                <!--end::List Widget 3-->
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal-->
+        <div class="modal fade" id="newEventModal" data-backdrop="static" tabindex="-1" role="dialog"
+            aria-labelledby="staticBackdrop" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="newEventModalLAbel">Add New Event</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i aria-hidden="true" class="ki ki-close"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Event Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Enter event name" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="#eventDescription">Event Description <span
+                                            class="text-danger"></span></label>
+                                    <textarea class="form-control" id="eventDescription" rows="4" cols="50"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group mb-1">
+                                <label>Select Time Period</label>
+                                <div class='input-group'>
+                                    <input id="event_datetime_range_picker" placeholder="Select datetime range"
+                                        class='form-control' required=True, readonly="readonly"></input>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="la la-calendar-check-o"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light-primary font-weight-bold"
+                            data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary font-weight-bold">Add Event</button>
+                    </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--begin::Global Config(global config for global JS scripts)-->
+        <script>
+            var KTAppSettings = {
+                "breakpoints": {
+                    "sm": 576,
+                    "md": 768,
+                    "lg": 992,
+                    "xl": 1200,
+                    "xxl": 1400
+                },
+                "colors": {
+                    "theme": {
+                        "base": {
+                            "white": "#ffffff",
+                            "primary": "#3699FF",
+                            "secondary": "#E5EAEE",
+                            "success": "#1BC5BD",
+                            "info": "#8950FC",
+                            "warning": "#FFA800",
+                            "danger": "#F64E60",
+                            "light": "#E4E6EF",
+                            "dark": "#181C32"
+                        },
+                        "light": {
+                            "white": "#ffffff",
+                            "primary": "#E1F0FF",
+                            "secondary": "#EBEDF3",
+                            "success": "#C9F7F5",
+                            "info": "#EEE5FF",
+                            "warning": "#FFF4DE",
+                            "danger": "#FFE2E5",
+                            "light": "#F3F6F9",
+                            "dark": "#D6D6E0"
+                        },
+                        "inverse": {
+                            "white": "#ffffff",
+                            "primary": "#ffffff",
+                            "secondary": "#3F4254",
+                            "success": "#ffffff",
+                            "info": "#ffffff",
+                            "warning": "#ffffff",
+                            "danger": "#ffffff",
+                            "light": "#464E5F",
+                            "dark": "#ffffff"
+                        }
+                    },
+                    "gray": {
+                        "gray-100": "#F3F6F9",
+                        "gray-200": "#EBEDF3",
+                        "gray-300": "#E4E6EF",
+                        "gray-400": "#D1D3E0",
+                        "gray-500": "#B5B5C3",
+                        "gray-600": "#7E8299",
+                        "gray-700": "#5E6278",
+                        "gray-800": "#3F4254",
+                        "gray-900": "#181C32"
+                    }
+                },
+                "font-family": "Poppins"
+            };
+        </script>
+        <!--end::Global Config-->
+</body>
+
+<footer style=" z-index: 10; height: 3em; margin-top: 3em; bottom: 1.5em;">
+    <!--begin::Footer-->
+    <div class="footer bg-white py-4 d-flex flex-lg-column " id="kt_footer">
+        <!--begin::Container-->
+        <div class=" container-fluid  d-flex flex-column flex-md-row align-items-center justify-content-between">
+            <!--begin::Copyright-->
+            <div class="text-dark order-2 order-md-1">
+                <span class="text-muted font-weight-bold mr-2">2020&copy;</span>
+                <a href="https://yourballot.org/" target="_blank" class="text-dark-75 text-hover-primary">Powered By
+                    YourBallot</a>
+            </div>
+            <!--end::Copyright-->
+
+            <!--begin::Nav-->
+            <div class="nav nav-dark">
+                <a href="https://yourballot.org/" target="_newtab" class="nav-link pl-0 pr-5">About</a>
+                <a href="mailto:jacob.lemler@yourballot.org?cc=joseph.cottingham@yourballot.org" target="_newtab"
+                    class="nav-link pl-0 pr-0">Contact</a>
+            </div>
+            <!--end::Nav-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Footer-->
+
+    <!--end::Global Config-->
+    <!--begin::Global Theme Bundle(used by all pages)-->
+    <script src="assets/metronic/assets/plugins/global/plugins.bundle.js"></script>
+    <script src="assets/metronic/assets/plugins/custom/prismjs/prismjs.bundle.js"></script>
+    <script src="assets/metronic/assets/js/scripts.bundle.js"></script>
+    <!--end::Global Theme Bundle-->
+    <!--begin::Page Vendors(used by this page)-->
+    <script src="assets/metronic/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <!--end::Page Vendors-->
+    <!--begin::Page Scripts(used by this page)-->
+</footer>
+
+<script>
+    $(document).ready(function () {
+        if ($(document).height() > $(window).height()) {
+            $('#footer').css('position', 'relative');
+        }
+    });
+</script>
+
+
+
+<script>
+    var KTCalendarListView = function () {
+        return {
+            //main function to initiate the module
+            init: function () {
+                var todayDate = moment().startOf('day');
+                var YM = todayDate.format('YYYY-MM');
+                var YESTERDAY = todayDate.clone().subtract(1, 'day').format('YYYY-MM-DD');
+                var TODAY = todayDate.format('YYYY-MM-DD');
+                var TOMORROW = todayDate.clone().add(1, 'day').format('YYYY-MM-DD');
+
+                var calendarEl = document.getElementById('kt_calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    plugins: ['interaction', 'dayGrid', 'timeGrid', 'list'],
+
+                    isRTL: KTUtil.isRTL(),
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'listWeek'
+                    },
+
+                    height: 800,
+                    contentHeight: 750,
+                    aspectRatio: 3, // see: https://fullcalendar.io/docs/aspectRatio
+
+                    defaultView: 'listWeek',
+                    defaultDate: TODAY,
+
+                    editable: true,
+                    eventLimit: true, // allow "more" link when too many events
+                    navLinks: true,
+                    events: [{
+                            title: 'All Day Event',
+                            start: YM + '-01',
+                            description: 'Toto lorem ipsum dolor sit incid idunt ut',
+                            className: "fc-event-danger fc-event-solid-warning"
+                        },
+                        {
+                            title: 'Reporting',
+                            start: YM + '-14T13:30:00',
+                            description: 'Lorem ipsum dolor incid idunt ut labore',
+                            end: YM + '-14',
+                            className: "fc-event-success"
+                        },
+                        {
+                            title: 'Company Trip',
+                            start: YM + '-02',
+                            description: 'Lorem ipsum dolor sit tempor incid',
+                            end: YM + '-03',
+                            className: "fc-event-primary"
+                        },
+                        {
+                            title: 'ICT Expo 2017 - Product Release',
+                            start: YM + '-03',
+                            description: 'Lorem ipsum dolor sit tempor inci',
+                            end: YM + '-05',
+                            className: "fc-event-light fc-event-solid-primary"
+                        },
+                        {
+                            title: 'Dinner',
+                            start: YM + '-12',
+                            description: 'Lorem ipsum dolor sit amet, conse ctetur',
+                            end: YM + '-10'
+                        },
+                        {
+                            id: 999,
+                            title: 'Repeating Event',
+                            start: YM + '-09T16:00:00',
+                            description: 'Lorem ipsum dolor sit ncididunt ut labore',
+                            className: "fc-event-danger"
+                        },
+                        {
+                            id: 1000,
+                            title: 'Repeating Event',
+                            description: 'Lorem ipsum dolor sit amet, labore',
+                            start: YM + '-16T16:00:00'
+                        },
+                        {
+                            title: 'Conference',
+                            start: YESTERDAY,
+                            end: TOMORROW,
+                            description: 'Lorem ipsum dolor eius mod tempor labore',
+                            className: "fc-event-primary"
+                        },
+                        {
+                            title: 'Meeting',
+                            start: TODAY + 'T10:30:00',
+                            end: TODAY + 'T12:30:00',
+                            description: 'Lorem ipsum dolor eiu idunt ut labore'
+                        },
+                        {
+                            title: 'Lunch',
+                            start: TODAY + 'T12:00:00',
+                            className: "fc-event-info",
+                            description: 'Lorem ipsum dolor sit amet, ut labore'
+                        },
+                        {
+                            title: 'Meeting',
+                            start: TODAY + 'T14:30:00',
+                            className: "fc-event-warning",
+                            description: 'Lorem ipsum conse ctetur adipi scing'
+                        },
+                        {
+                            title: 'Happy Hour',
+                            start: TODAY + 'T17:30:00',
+                            className: "fc-event-info",
+                            description: 'Lorem ipsum dolor sit amet, conse ctetur'
+                        },
+                        {
+                            title: 'Dinner',
+                            start: TOMORROW + 'T05:00:00',
+                            className: "fc-event-solid-danger fc-event-light",
+                            description: 'Lorem ipsum dolor sit ctetur adipi scing'
+                        },
+                        {
+                            title: 'Birthday Party',
+                            start: TOMORROW + 'T07:00:00',
+                            className: "fc-event-primary",
+                            description: 'Lorem ipsum dolor sit amet, scing'
+                        },
+                        {
+                            title: 'Click for Google',
+                            url: 'http://google.com/',
+                            start: YM + '-28',
+                            className: "fc-event-solid-info fc-event-light",
+                            description: 'Lorem ipsum dolor sit amet, labore'
+                        }
+                    ],
+
+                    eventRender: function (info) {
+                        var element = $(info.el);
+
+                        if (info.event.extendedProps && info.event.extendedProps.description) {
+                            if (element.hasClass('fc-day-grid-event')) {
+                                element.data('content', info.event.extendedProps.description);
+                                element.data('placement', 'top');
+                                KTApp.initPopover(element);
+                            } else if (element.hasClass('fc-time-grid-event')) {
+                                element.find('.fc-title').append('<div class="fc-description">' +
+                                    info.event.extendedProps.description + '</div>');
+                            } else if (element.find('.fc-list-item-title').lenght !== 0) {
+                                element.find('.fc-list-item-title').append(
+                                    '<div class="fc-description">' + info.event.extendedProps
+                                    .description + '</div>');
+                            }
+                        }
+                    }
+                });
+
+                calendar.render();
+            }
+        };
+    }();
+
+    jQuery(document).ready(function () {
+        KTCalendarListView.init();
+    });
+</script>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script>
+    $(function () {
+        $('#event_datetime_range_picker').daterangepicker({
+            timePicker: true,
+            startDate: moment().startOf('hour'),
+            endDate: moment().startOf('hour').add(32, 'hour'),
+            opens: 'left',
+            locale: {
+                format: 'M/DD hh:mm A'
+            }
+        }, function (start, end, label) {
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' +
+                end
+                .format('YYYY-MM-DD'));
+        });
+    });
+</script>
+
+</html>

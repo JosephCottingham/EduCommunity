@@ -1,0 +1,52 @@
+.container, .container-lg, .container-md, .container-sm, .container-xl {
+    max-width: 1920px;
+}
+
+.secondary-nav-col {
+    margin-top: 1em;
+}
+
+.card-event-schedule {
+    margin: 1em;
+    min-width: 500px;
+}
+
+.card-event-top-teams {
+    margin: 1em;
+    min-width: 400px; 
+}
+.card-event-info{
+    margin: 1em;
+}
+.card-outstanding {
+    margin: 1em;    
+}
+
+.ballot-list {
+    margin: 1em;
+}
+
+.team-summery {
+    margin: 1em;
+}
+.grouping-card {
+    min-height: 330px;
+    max-height: 330px;
+    min-width: 350px;
+}
+.grouping-card-body {
+    padding: .25rem !important;
+}
+
+.judge-select {
+    margin: 1.2em .25em;
+}
+
+.page-controls {
+    margin: 1em 1em .5em 1em;
+}
+.select-judges-modal {
+    min-width: 600px;
+}
+
+
