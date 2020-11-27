@@ -5,11 +5,11 @@
 {% block webAppPageContent %}
 <div class="col-md-11 content-col">
     <div class="row">
-        <h3 class="channel-header">Home</h3>
+        <h3 class="channel-header">Browse</h3>
     </div>
     <hr style="border-top: 3px solid; color: #838383;">
     <div class="row">
-        {% for community in current_user.communities %}
+        {% for community in communities%}
         <div class="col-md-4">
             <!--begin::Nav Panel Widget 4-->
             <div class="card card-custom card-stretch gutter-b">
@@ -170,11 +170,10 @@
             <!--end::Nav Panel Widget 4-->
         </div>
         {% endfor %}
-
     </div>
 </div>
 {% endblock %}
 
 {% block webAppPageJS %}
-    
+
 {% endblock %}

@@ -2,8 +2,12 @@
 	box-sizing: border-box;
 }
 
+.channel-header {
+	font-weight: bold;
+	padding: 20px;
+}
+
 body {
-	font-family: 'Open Sans';
 	padding: 0;
 	margin: 0;
 }
@@ -16,7 +20,16 @@ body {
 .communities-col {
 	min-width: 1em;
 	padding: 20px;
+	background-color: #b5b6b8;
+	
 }
+
+.server-list {
+	margin-left: auto;
+	display: block;
+	align-items: center;
+}
+
 
 .server {
 	background: white;
@@ -31,7 +44,7 @@ body {
 .server--icon {
 	width: 50px;
 	height: 50px;
-	background: gray;
+	background: white;
 	border-radius: 50%;
 	display: flex;
 	align-items: center;
@@ -39,14 +52,14 @@ body {
 	margin-bottom: 10px;
 	transition: all 0.2s ease-in-out;
 	cursor: pointer;
-	color: white;
+	color: black;
     position: relative;
     a:active {
         content: '';
         position: absolute;
         left: 0;
         width: 13px;
-        background: green;
+        background: #3699FF;
         height: 46px;
         border-radius: 33px;
         margin-left: -19px; 
@@ -56,7 +69,7 @@ body {
 
 .server--icon:hover {
     border-radius: 25%;
-    background: green;
+    background: #3699FF;
 }
 
 .server--seperator {

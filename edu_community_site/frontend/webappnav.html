@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block pageCSS %}
-    <link rel="stylesheet" href="/assets/css/textchannel.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/textchannel.css') }}">
     {% block webAppPageCSS %}
         
     {% endblock %}
@@ -9,26 +9,25 @@
 <div class="row" data-sticky-container="">
     <div class="col- communities-col app">
         <div class="server-list">
-            <div class="server--icon ">
-                <span>Atd</span>
+            <a href="{{ url_for('app.home') }}">
+            <div class="server--icon">
+                <span><img src="/assets/icons/home-icon.svg" alt="Kiwi standing on oval"></span>
             </div>
+        </a>
             <div class="server--seperator"></div>
             <div class="server--icon active">
-                <span>Atd</span>
+                <span><img src="/assets/icons/setting-icon.svg" alt="Kiwi standing on oval"></span>
             </div>
+            <a href="{{ url_for('app.browse') }}">
             <div class="server--icon">
-                <span>Atd</span>
+                <span><img src="/assets/icons/explore-icon.svg" alt="Kiwi standing on oval"></span>
             </div>
+            </a>
+            {% for community in current_user.communities %}
             <div class="server--icon">
-                <span>Atd</span>
+                <span>community.name</span>
             </div>
-            <div class="server--icon">
-                <span>Atd</span>
-            </div>
-            <div class="server--seperator"></div>
-            <div class="server--icon">
-                <span>Atd</span>
-            </div>
+            {% endfor %}
         </div>
     </div>
     {% block webAppPageContent %}

@@ -8,8 +8,8 @@ from enum import Enum
 from edu_community import login_manager, sqlDB
 
 @login_manager.user_loader
-def load_user(user_code):
-    return sqlDB.session.query(User).filter_by(code=user_code).first()
+def load_user(user_id):
+    return sqlDB.session.query(User).get(user_id)
 
 class User_Community_Enum(Enum):
     member = 0
@@ -94,21 +94,18 @@ class Community(sqlDB.Model):
 
     community_tags = sqlDB.relationship("Community_Tag", back_populates="communities", secondary=communities_community_tags)
 
-    text_channels_id = sqlDB.Column(sqlDB.Integer, sqlDB.ForeignKey('text_channels.id'))
-    text_channels = sqlDB.relationship('Text_Channel', back_populates='community')
+    text_channels = sqlDB.relationship('Text_Channel', back_populates='community', lazy='dynamic')
 
-    def __init__(self, name, dis, owner):
+    def __init__(self, name, dis):
         code = 'CO__' + uuid.uuid4().hex
         while (sqlDB.session.query(User).filter_by(code=code).first() != None):
             code = 'CO__' + uuid.uuid4().hex
         self.code = code   
         self.name = name
         self.dis = dis
-        users_communities_assocation = Users_Communities_Assocation(user=owner, community=self, role=User_Community_Enum.owner)
-        sqlDB.session.add(users_communities_assocation)
         new_text_channel = Text_Channel('general', 'general')
         sqlDB.session.add(new_text_channel)
-        text_channels.append(new_text_channel)
+        self.text_channels.append(new_text_channel)
         sqlDB.session.commit()
 
 class Text_Channel(sqlDB.Model):
@@ -126,6 +123,7 @@ class Text_Channel(sqlDB.Model):
     name = sqlDB.Column(sqlDB.String(64), index=True, unique=False)
     dis = sqlDB.Column(sqlDB.Text(), index=True, unique=False)
 
+    community_id = sqlDB.Column(sqlDB.Integer, sqlDB.ForeignKey('communities.id'))
     community = sqlDB.relationship('Community', back_populates='text_channels')
 
     def __init__(self, name, dis):
