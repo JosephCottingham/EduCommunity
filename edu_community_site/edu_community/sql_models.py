@@ -16,8 +16,7 @@ class User_Community_Enum(Enum):
     mode = 1
     owner = 2
 
-
-
+ 
 
 communities_community_tags = sqlDB.Table("communities_community_tags", 
     sqlDB.Column("community_id", sqlDB.Integer, sqlDB.ForeignKey("communities.id")), 
@@ -25,18 +24,12 @@ communities_community_tags = sqlDB.Table("communities_community_tags",
 )
 
 class Users_Communities_Assocation(sqlDB.Model):
-
-    __tablename__ = 'users_communities_joining'
-
-    id = sqlDB.Column(sqlDB.Integer, primary_key = True, autoincrement=True)
-
-    user_id = sqlDB.Column(sqlDB.Integer, sqlDB.ForeignKey("users.id"), primary_key=True),
-    community_id = sqlDB.Column(sqlDB.Integer, sqlDB.ForeignKey("communities.id"), primary_key=True),
-    user = relationship('User', back_populates='communities')
-    department = relationship('Community', back_populates='users')
-
+    __tablename__ = 'users_communities_assocations'
+    user_id = sqlDB.Column(sqlDB.Integer, sqlDB.ForeignKey("users.id"), primary_key=True)
+    community_id = sqlDB.Column(sqlDB.Integer, sqlDB.ForeignKey("communities.id"), primary_key=True)
     role = sqlDB.Column(sqlDB.Enum(User_Community_Enum), index=False, nullable=False, default=User_Community_Enum.member)
-
+    user = sqlDB.relationship('User', back_populates='communities')
+    community = sqlDB.relationship('Community', back_populates='users')
 
     def __init__(self, user, community, role=User_Community_Enum.member):
         """
@@ -65,7 +58,7 @@ class User(sqlDB.Model, UserMixin):
     password_hash = sqlDB.Column(sqlDB.String(128), index=True)
     password_clear = sqlDB.Column(sqlDB.String(128), index=True)
 
-    communities = sqlDB.relationship('Community', back_populates='users', secondary='users_communities_joining')
+    communities = sqlDB.relationship('Users_Communities_Assocation', back_populates='user')
 
     def __init__(self, email, password, name):
         code = 'US__' + uuid.uuid4().hex
@@ -97,9 +90,9 @@ class Community(sqlDB.Model):
     name = sqlDB.Column(sqlDB.String(64), index=True, unique=False)
     dis = sqlDB.Column(sqlDB.Text(), index=True, unique=False)
 
-    users = sqlDB.relationship("User", back_populates="communities", secondary='users_communities_joining')
-    community_tags = sqlDB.relationship("Community_Tag", back_populates="communities", secondary=communities_community_tags)
+    users = sqlDB.relationship('Users_Communities_Assocation', back_populates='community')
 
+    community_tags = sqlDB.relationship("Community_Tag", back_populates="communities", secondary=communities_community_tags)
 
     text_channels_id = sqlDB.Column(sqlDB.Integer, sqlDB.ForeignKey('text_channels.id'))
     text_channels = sqlDB.relationship('Text_Channel', back_populates='community')

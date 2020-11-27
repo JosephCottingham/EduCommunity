@@ -14,3 +14,11 @@ class Login_Form(FlaskForm):
     email = EmailField('Email', [InputRequired()])
     password = PasswordField('Password', [InputRequired()])
     login_submit = SubmitField('Login')
+
+class Signup_Form(FlaskForm):
+    """Form to create new user"""
+    name = StringField('Name', [InputRequired()])
+    email = EmailField('Email', [InputRequired()])
+    password = PasswordField('Password', [InputRequired()])
+    password_confirm = PasswordField('Password', [InputRequired()])
+    signup_submit = SubmitField('Signup')

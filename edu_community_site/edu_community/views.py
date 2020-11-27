@@ -11,20 +11,34 @@ def logout():
     print('user logout: ' + str(x))
     return redirect(url_for('app.home'))
 
-
-@appBlueprint.route("/login")
+@appBlueprint.route("/login", methods=['GET','POST'])
 def login():
     login_form = Login_Form()
-    if request.method == 'POST':
-        if community_create_form.validate_on_submit():
-            if sqlDB.session.query(Community).filter_by(name=community_create_form.name).first():
-                return 'Error'
-            else:
-                
-    return render_template('login.html',
-    login_form=login_form
-    )
+    signup_form = Signup_Form()
 
+    if request.method == 'POST':
+        if login_form.validate_on_submit() and login_form.login_submit.data:
+            temp_user = sqlDB.session.query(User).filter_by(email=login_form.email.data).first()
+            if temp_user and temp_user.check_password(login_form.password.data):
+                login_user(temp_user)
+                return redirect(url_for('app.home'))
+            else:
+                return 'error' #TODO ERROR Handling
+        if signup_form.validate_on_submit() and signup_form.signup_submit.data:
+            temp_user = sqlDB.session.query(User).filter_by(email=login_form.email.data).first()
+            if not temp_user and signup_form.password.data == signup_form.password_confirm.data:
+                new_user = User(email=signup_form.email.data, password=signup_form.password.data, name=signup_form.name.data)
+                sqlDB.session.add(new_user)
+                sqlDB.session.commit()
+                login_user(new_user)
+                return redirect(url_for('app.home'))
+            else:
+                return 'error' #TODO ERROR Handling
+
+    return render_template('login.html',
+    login_form=login_form,
+    signup_form=signup_form
+    )
 
 @appBlueprint.route("/home")
 def home():
@@ -36,9 +50,12 @@ def create_community():
     if request.method == 'POST':
         if community_create_form.validate_on_submit():
             if sqlDB.session.query(Community).filter_by(name=community_create_form.name).first():
-                return 'Error'
+                return 'error' #TODO ERROR Handling
             else:
-                new_community = Community(name=community_create_form.name, dis=community_create_form.dis, owner=current_user)
+                new_community = Community(name=community_create_form.name,
+                dis=community_create_form.dis,
+                owner=current_user)
+                
     return render_template('create_community.html',
     community_create_form=community_create_form
     )

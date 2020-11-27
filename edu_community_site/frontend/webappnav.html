@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block pageCSS %}
+    <link rel="stylesheet" href="/assets/css/textchannel.css">
+    {% block webAppPageCSS %}
+        
+    {% endblock %}
+{% endblock %}
+{% block contents %}
+<div class="row" data-sticky-container="">
+    <div class="col- communities-col app">
+        <div class="server-list">
+            <div class="server--icon ">
+                <span>Atd</span>
+            </div>
+            <div class="server--seperator"></div>
+            <div class="server--icon active">
+                <span>Atd</span>
+            </div>
+            <div class="server--icon">
+                <span>Atd</span>
+            </div>
+            <div class="server--icon">
+                <span>Atd</span>
+            </div>
+            <div class="server--icon">
+                <span>Atd</span>
+            </div>
+            <div class="server--seperator"></div>
+            <div class="server--icon">
+                <span>Atd</span>
+            </div>
+        </div>
+    </div>
+    {% block webAppPageContent %}
+    {% endblock %}
+
+</div>
+{% endblock %}
+{% block pageJS %}
+    {% block webAppPageJS %}
+        
+    {% endblock %}
+{% endblock %}

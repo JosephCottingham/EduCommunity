@@ -8,9 +8,14 @@ body {
 	margin: 0;
 }
 
-.discordApp {
+.app {
 	height: 100vh;
 	display: flex;
+}
+
+.communities-col {
+	min-width: 1em;
+	padding: 20px;
 }
 
 .server {
