@@ -1,0 +1,16 @@
+from wtforms import StringField, BooleanField, SubmitField, TextAreaField, PasswordField, SelectField,  DecimalField, HiddenField
+from wtforms.validators import DataRequired, Email, EqualTo, InputRequired
+from flask_wtf import FlaskForm
+from wtforms.fields.html5 import EmailField
+
+class Community_Create_Form(FlaskForm):
+    """Form to create new community"""
+    name = StringField('Name', [InputRequired()])
+    dis = TextAreaField('Description', [InputRequired()])
+    community_create_submit = SubmitField('Create')
+
+class Login_Form(FlaskForm):
+    """Form to create new community"""
+    email = EmailField('Email', [InputRequired()])
+    password = PasswordField('Password', [InputRequired()])
+    login_submit = SubmitField('Login')
