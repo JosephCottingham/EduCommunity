@@ -1,3 +1,4 @@
+import os
 from flask_login import UserMixin
 from flask_login import current_user
 from sqlalchemy.orm import relationship, subqueryload, lazyload
@@ -73,7 +74,7 @@ class User(sqlDB.Model, UserMixin):
         self.password_clear = password
         filename = secure_filename(self.code + ".jpg")
         path = os.path.join(app.static_folder, 'img', 'user_avatars', filename)
-        urllib.urlretrieve(('https://picsum.photos/200?random'), (path))
+        urllib.request.urlretrieve(('https://picsum.photos/200?random'), (path))
     def check_password(self, password):
         return check_password_hash(self.password_hash,password)
 
@@ -113,6 +114,11 @@ class Community(sqlDB.Model):
         self.text_channels.append(new_text_channel)
         sqlDB.session.commit()
 
+    def get_channels(self):
+        channel_dict = {}
+        channel_dict['text_channels'] = self.text_channels
+        return channel_dict
+
 class Text_Channel(sqlDB.Model):
 
     __tablename__ = 'text_channels'
@@ -140,7 +146,7 @@ class Text_Channel(sqlDB.Model):
         self.code = code   
         self.name = name
         self.dis = dis
-        new_document = mongoDB.channel_messages.insert_one({msgs : []})
+        new_document = mongoDB.channel_messages.insert_one({'msgs' : []})
         self.mongodb_chat_history_id = str(new_document.inserted_id)
 
 class Community_Tag(sqlDB.Model):

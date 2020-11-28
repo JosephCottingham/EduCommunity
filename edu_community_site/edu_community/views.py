@@ -143,11 +143,12 @@ def community(community_code):
 def community_text_channel(community_code, channel_code):
     temp_community = sqlDB.session.query(Community).filter_by(code=community_code).first_or_404()
     temp_channel = temp_community.text_channels.first_or_404()
-
+    channel_dict = temp_community.get_channels()
     return render_template('/textchannel.html',
         current_user=current_user,
         community=temp_community,
-        channel=temp_channel
+        channel=temp_channel,
+        channel_dict=channel_dict
     )
  
 

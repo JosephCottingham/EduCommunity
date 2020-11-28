@@ -208,11 +208,11 @@ $(document).ready(function () {
             var html = '';
             html += '<div class="d-flex align-items-center">';
             html += '	<div>';
-            html += '		<span class="text-muted font-size-sm">2 Hours</span>';
-            html += '		<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">You</a>';
+            html += '		<span class="text-muted font-size-sm">' + new Date().getTime().toString() + '</span>';
+            html += '		<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' + community_info.user_name + '</a>';
             html += '	</div>';
             html += '	<div class="symbol symbol-circle symbol-40 ml-3">';
-            html += '		<img alt="Pic" src="assets/media/users/300_12.jpg"/>';
+            html += '		<img alt="Pic" src="' + community_info.avatar_url.replace("USER_CODE", community_info.user_code) + '"/>';
             html += '	</div>';
             html += '</div>';
             html += '<div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">' + textarea.value + '</div>';

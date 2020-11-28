@@ -5,22 +5,15 @@
         <div class="channels--list">
             <div class="channels--list-item">
                 <div class="channels--list-content">
+                    {% for channel in channel_dict['text_channels'] %}
+                    <a href="{{url_for('app.community_text_channel', channel_code=channel.code, community_code=channel.community.code)}}">
                     <div class="channels--list-content-item">
                         <!-- <span>></span> -->
-                        <h5>General</h5>
+                        <h5 style="color: black;">{{channel.name}}</h5>
                     </div>
-                    <div class="channels--list-content-item">
-                        <!-- <span>></span> -->
-                        <h5>General</h5>
-                    </div>
-                    <div class="channels--list-content-item">
-                        <!-- <span>></span> -->
-                        <h5>General</h5>
-                    </div>
-                    <div class="channels--list-content-item">
-                        <!-- <span>></span> -->
-                        <h5>General</h5>
-                    </div>
+                    </a>
+                    {% endfor %}
+
                 </div>
 
             </div>
@@ -139,21 +132,14 @@
                 </div>
                 <div class="text-center text-center">
                     <div class="symbol-group symbol-hover justify-content-center">
-                        <div class="symbol symbol-35 symbol-circle" data-toggle="tooltip" title="Ana Fox">
-                            <img alt="Pic" src="assets/metronic/assets/media/users/300_16.jpg" />
+                        {% set index = 0 %}
+                        {% for user in community.users if index < 5 %}
+                        <div class="symbol symbol-35 symbol-circle" data-toggle="tooltip" title="{{user.user.name}}">
+                            <img alt="Pic" src="{{ url_for('static', filename='img/user_avatars/'+ user.user.code +'.jpg') }}" />
                         </div>
-                        <div class="symbol symbol-35 symbol-circle" data-toggle="tooltip" title="Nich Nilson">
-                            <img alt="Pic" src="assets/metronic/assets/media/users/300_21.jpg" />
-                        </div>
-                        <div class="symbol symbol-35 symbol-circle" data-toggle="tooltip" title="James Stone">
-                            <img alt="Pic" src="assets/metronic/assets/media/users/300_22.jpg" />
-                        </div>
-                        <div class="symbol symbol-35 symbol-circle" data-toggle="tooltip" title="Micheal Bold">
-                            <img alt="Pic" src="assets/metronic/assets/media/users/300_23.jpg" />
-                        </div>
-                        <div class="symbol symbol-35 symbol-circle" data-toggle="tooltip" title="Sean Cooper">
-                            <img alt="Pic" src="assets/metronic/assets/media/users/300_15.jpg" />
-                        </div>
+                        {% set index = index + 1 %}
+                        {% endfor %}
+
                         <div class="symbol symbol-35 symbol-circle symbol-light-success" data-toggle="tooltip"
                             title="Invite someone">
                             <span class="symbol-label font-weight-bold">{{ community.users|length }}</span>
@@ -309,6 +295,7 @@
         channel_code:"{{channel.code}}",
         socketio_endpoint:"{{ url_for('app.front') }}text_channel",
         user_code:"{{current_user.code}}",
+        user_name:"{{current_user.name}}",
         avatar_url:"{{ url_for('static', filename='img/user_avatars/'+'USER_CODE'+'.jpg') }}"
     };
 </script>

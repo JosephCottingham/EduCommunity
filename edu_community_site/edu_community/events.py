@@ -50,7 +50,7 @@ def text(message):
     emit('message', {'msg':msg}, room=room)
 
 @socketio.on('disconnect', namespace='/text_channel')
-def left():
+def disconnect(message):
     text_channel = sqlDB.session.query(Text_Channel).filter_by(code=message['message']['channel_code']).first()
     text_channel.community.members_online -= 1
     sqlDB.session.commit()
