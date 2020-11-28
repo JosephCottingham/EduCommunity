@@ -11,6 +11,8 @@ from bson.objectid import ObjectId
 def joined(message):
     print(message)
     text_channel = sqlDB.session.query(Text_Channel).filter_by(code=message['message']['channel_code']).first()
+    text_channel.community.members_online += 1
+    sqlDB.session.commit()
     if text_channel:
         room=text_channel.mongodb_chat_history_id 
         join_room(room)
@@ -50,6 +52,8 @@ def text(message):
 @socketio.on('disconnect', namespace='/text_channel')
 def left():
     text_channel = sqlDB.session.query(Text_Channel).filter_by(code=message['message']['channel_code']).first()
+    text_channel.community.members_online -= 1
+    sqlDB.session.commit()
     leave_room(room)
     emit('status', {'msg': session.get('name') + ' has left the room.'}, room=text_channel.mongodb_chat_history_id)
 

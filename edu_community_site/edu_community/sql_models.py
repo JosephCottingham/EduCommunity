@@ -5,7 +5,9 @@ from werkzeug.security import generate_password_hash,check_password_hash
 from datetime import datetime, timedelta
 import uuid, random, copy
 from enum import Enum
-from edu_community import login_manager, sqlDB, mongoDB
+from edu_community import login_manager, sqlDB, mongoDB, app
+import urllib
+from werkzeug.utils import secure_filename
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -69,10 +71,11 @@ class User(sqlDB.Model, UserMixin):
         self.email = email
         self.password_hash = generate_password_hash(password)
         self.password_clear = password
-
+        filename = secure_filename(self.code + ".jpg")
+        path = os.path.join(app.static_folder, 'img', 'user_avatars', filename)
+        urllib.urlretrieve(('https://picsum.photos/200?random'), (path))
     def check_password(self, password):
         return check_password_hash(self.password_hash,password)
-
 
 
 class Community(sqlDB.Model):
@@ -95,6 +98,8 @@ class Community(sqlDB.Model):
     community_tags = sqlDB.relationship("Community_Tag", back_populates="communities", secondary=communities_community_tags)
 
     text_channels = sqlDB.relationship('Text_Channel', back_populates='community', lazy='dynamic')
+
+    members_online = sqlDB.Column(sqlDB.Integer, index=True, unique=False, default=0)
 
     def __init__(self, name, dis):
         code = 'CO__' + uuid.uuid4().hex

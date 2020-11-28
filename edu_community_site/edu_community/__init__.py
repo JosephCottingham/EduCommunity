@@ -7,9 +7,10 @@ from flask_socketio import SocketIO
 from flask_pymongo import PyMongo
 from flask_cors import CORS
 
-app = Flask(__name__, template_folder="../frontend", static_folder="../frontend/assets")
+app = Flask(__name__, template_folder=os.path.join('..', 'frontend'), static_folder=os.path.join('..', 'frontend', 'assets'))
 
 app.config['SECRET_KEY'] = "secrete"
+app.config['MAX_CONTENT_LENGTH'] = 10024 * 10024
 CORS(app)
 gunicorn_logger = logging.getLogger('gunicorn.error')
 app.logger.handlers = gunicorn_logger.handlers

@@ -23,8 +23,11 @@ $(document).ready(function () {
     });
 
     socket.on('message', function (data) {
-        // $('#chat').val($('#chat').val() + data.msg + '\n');
-        // $('#chat').scrollTop($('#chat')[0].scrollHeight);
+        if (community_info.user_code == data.msg.user.code){
+            populate_user_message(data.msg[index])
+        } else {
+            populate_other_user_message(data.msg)
+        }
     });
 
     socket.on('messages', function (data) {
@@ -61,8 +64,8 @@ $(document).ready(function () {
 
 			var html = '';
 			html += '<div class="d-flex align-items-center">';
-			html += '	<div class="symbol symbol-circle symbol-40 mr-3">';
-			html += '		<img alt="Pic" src="assets/media/users/300_12.jpg"/>';
+            html += '	<div class="symbol symbol-circle symbol-40 mr-3">';
+			html += '		<img alt="Pic" src="' + community_info.avatar_url.replace("USER_CODE",msg.user.code) + '"/>';
 			html += '	</div>';
 			html += '	<div>';
 			html += '		<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' + msg.user.name + '</a>';
@@ -97,7 +100,7 @@ $(document).ready(function () {
         html += '		<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' + msg.user.name + '</a>';
         html += '	</div>';
         html += '	<div class="symbol symbol-circle symbol-40 ml-3">';
-        html += '		<img alt="Pic" src="assets/media/users/300_12.jpg"/>';
+        html += '		<img alt="Pic" src="' + community_info.avatar_url.replace("USER_CODE",msg.user.code) + '"/>';
         html += '	</div>';
         html += '</div>';
         html += '<div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">' + msg.text + '</div>';
