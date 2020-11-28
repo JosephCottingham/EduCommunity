@@ -24,9 +24,11 @@
             </div>
             </a>
             {% for community in current_user.communities %}
+            <a href="{{ url_for('app.community', community_code=community.community.code) }}">
             <div class="server--icon">
-                <span>community.name</span>
+                <span>{{ community.community.name }}</span>
             </div>
+            </a>
             {% endfor %}
         </div>
     </div>

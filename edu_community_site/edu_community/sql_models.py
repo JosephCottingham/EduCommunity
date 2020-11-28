@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash,check_password_hash
 from datetime import datetime, timedelta
 import uuid, random, copy
 from enum import Enum
-from edu_community import login_manager, sqlDB
+from edu_community import login_manager, sqlDB, mongoDB
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -126,6 +126,8 @@ class Text_Channel(sqlDB.Model):
     community_id = sqlDB.Column(sqlDB.Integer, sqlDB.ForeignKey('communities.id'))
     community = sqlDB.relationship('Community', back_populates='text_channels')
 
+    mongodb_chat_history_id = sqlDB.Column(sqlDB.String(64), index=False, unique=True)
+
     def __init__(self, name, dis):
         code = 'TC__' + uuid.uuid4().hex
         while (sqlDB.session.query(User).filter_by(code=code).first() != None):
@@ -133,6 +135,8 @@ class Text_Channel(sqlDB.Model):
         self.code = code   
         self.name = name
         self.dis = dis
+        new_document = mongoDB.channel_messages.insert_one({msgs : []})
+        self.mongodb_chat_history_id = str(new_document.inserted_id)
 
 class Community_Tag(sqlDB.Model):
 

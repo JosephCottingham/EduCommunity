@@ -27,7 +27,7 @@
                                 <!--end::Image-->
                                 <!--begin::Title-->
                                 <a href="#"
-                                    class="card-title font-weight-bolder text-dark-75 text-hover-primary font-size-h4 m-0 pt-7 pb-1">{{ community.name }}</a>
+                                    class="card-title font-weight-bolder text-dark-75 text-hover-primary font-size-h4 m-0 pt-7 pb-1">{{ community.community.name }}</a>
                                 <!--end::Title-->
                                 <!--begin::Text-->
                                 <div class="font-weight-bold text-dark-50 font-size-sm pb-7">11:20-12:00, Mark Liam
@@ -156,10 +156,10 @@
                         </div>
                         <!--eng::Container-->
                         <!--begin::Footer-->
-                        <div class="d-flex flex-center" id="kt_sticky_toolbar_chat_toggler_3" data-toggle="tooltip"
-                            title="" data-placement="right" data-original-title="Chat Example">
+                        <div class="d-flex flex-center">
                             <button class="btn btn-primary font-weight-bolder font-size-sm py-3 px-14"
-                                data-toggle="modal" data-target="#kt_chat_modal">Contact Teacher</button>
+                                data-toggle="modal" data-target="#modal-{{ community.community.code }}">Join
+                                Community</button>
                         </div>
                         <!--end::Footer-->
                     </div>
@@ -173,8 +173,35 @@
 
     </div>
 </div>
+
+{% for community in current_user.communities %}
+<div class="modal fade" id="modal-{{ community.community.code }}" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="POST">
+                <input type="hidden" name="community_code" value="{{ community.community.code }}">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Join {{ community.community.name }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light-primary font-weight-bold"
+                        data-dismiss="modal">Close</button>
+                    <button type="submit" name="community_join_submit" class="btn btn-primary font-weight-bold">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
 {% endblock %}
 
 {% block webAppPageJS %}
-    
+
 {% endblock %}

@@ -3,7 +3,7 @@ from flask import Flask, render_template, redirect, url_for, Blueprint, flash, r
 from .sql_models import *
 from .forms import *
 from edu_community import sqlDB
-appBlueprint = Blueprint('app',__name__)
+appBlueprint = Blueprint('app', __name__)
 
 @login_required
 @appBlueprint.route("/logout")
@@ -44,6 +44,21 @@ def login():
 @login_required
 @appBlueprint.route("/home")
 def home():
+    if request.method == 'POST':
+        if request.form.community_join_submit and request.form.community_code:
+            temp_community = sqlDB.session.query(Community).filter_by(code=request.form.community_code).first_or_404()
+            for community in current_user.communities.community:
+                if community == temp_community:
+                    return 'error' #TODO error handling
+            new_users_communities_assocation = Users_Communities_Assocation(
+                    user=current_user,
+                    community=temp_community,
+                    role=User_Community_Enum.member
+            )
+            sqlDB.session.add(new_users_communities_assocation)
+            sqlDB.session.commit()
+            return redirect(url_for('app.community', community_code=temp_community.code))
+
     return render_template('home.html', current_user=current_user)
 
 @login_required

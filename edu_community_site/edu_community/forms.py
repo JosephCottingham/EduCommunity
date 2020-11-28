@@ -22,3 +22,4 @@ class Signup_Form(FlaskForm):
     password = PasswordField('Password', [InputRequired()])
     password_confirm = PasswordField('Password', [InputRequired()])
     signup_submit = SubmitField('Signup')
+

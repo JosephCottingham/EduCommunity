@@ -4,12 +4,13 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from datetime import datetime
 from flask_socketio import SocketIO
-
+from flask_pymongo import PyMongo
+from flask_cors import CORS
 
 app = Flask(__name__, template_folder="../frontend", static_folder="../frontend/assets")
 
 app.config['SECRET_KEY'] = "secrete"
-
+CORS(app)
 gunicorn_logger = logging.getLogger('gunicorn.error')
 app.logger.handlers = gunicorn_logger.handlers
 app.logger.setLevel(gunicorn_logger.level)
@@ -22,10 +23,12 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///siteData.sqlite"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["MONGO_URI"] = "mongodb+srv://user:71720007@cluster0.jzq2p.mongodb.net/Cluster0?retryWrites=true&w=majority"
+
 
 sqlDB = SQLAlchemy(app)
-
-
+pymongo = PyMongo(app)
+mongoDB = pymongo.db
 ###########################
 #### LOGIN CONFIGS #######
 #########################
@@ -55,6 +58,10 @@ sqlDB.session.commit()
 #########################
 from edu_community.views import appBlueprint
 app.register_blueprint(appBlueprint)
+
+socketio = SocketIO(app, cors_allowed_origins="*")
+import edu_community.events
+
 
 ###########################
 #### ADMIN CONFIGS #######
