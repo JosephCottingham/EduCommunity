@@ -19,7 +19,6 @@ $(document).ready(function () {
     socket.on('status', function (data) {
         // $('#chat').val($('#chat').val() + '<' + data.msg + '>\n');
         // $('#chat').scrollTop($('#chat')[0].scrollHeight);
-        console.log(data.msg);
     });
 
     socket.on('message', function (data) {
@@ -69,7 +68,7 @@ $(document).ready(function () {
 			html += '	</div>';
 			html += '	<div>';
 			html += '		<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' + msg.user.name + '</a>';
-			html += '		<span class="text-muted font-size-sm">' + msg.time + '</span>';
+			html += '		<span class="text-muted font-size-sm">' + new Date(Date.parse(msg.time)).toLocaleString() + '</span>';
 			html += '	</div>';
 			html += '</div>';
 			html += '<div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">';
@@ -96,7 +95,7 @@ $(document).ready(function () {
         var html = '';
         html += '<div class="d-flex align-items-center">';
         html += '	<div>';
-        html += '		<span class="text-muted font-size-sm">' + msg.time + '</span>';
+        html += '		<span class="text-muted font-size-sm">' + new Date(Date.parse(msg.time)).toLocaleString() + '</span>';
         html += '		<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' + msg.user.name + '</a>';
         html += '	</div>';
         html += '	<div class="symbol symbol-circle symbol-40 ml-3">';

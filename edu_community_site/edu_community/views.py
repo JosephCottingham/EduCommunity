@@ -13,13 +13,13 @@ appBlueprint = Blueprint('app', __name__)
 def logout():
     x = logout_user()
     print('user logout: ' + str(x))
-    return redirect(url_for('app.home'))
+    return redirect(url_for('app.front'))
 
 @appBlueprint.route("/login", methods=['GET','POST'])
 def login():
     login_form = Login_Form()
     signup_form = Signup_Form()
-
+    error_message=''
     if request.method == 'POST':
         if login_form.validate_on_submit() and login_form.login_submit.data:
             temp_user = sqlDB.session.query(User).filter_by(email=login_form.email.data).first()
@@ -27,7 +27,7 @@ def login():
                 login_user(temp_user)
                 return redirect(url_for('app.home'))
             else:
-                return 'error' #TODO ERROR Handling
+                error_message='Invalid Login'
         if signup_form.validate_on_submit() and signup_form.signup_submit.data:
             temp_user = sqlDB.session.query(User).filter_by(email=login_form.email.data).first()
             if not temp_user and signup_form.password.data == signup_form.password_confirm.data:
@@ -37,11 +37,12 @@ def login():
                 login_user(sqlDB.session.query(User).get(new_user.id))
                 return redirect(url_for('app.home'))
             else:
-                return 'error' #TODO ERROR Handling
+                error_message='Email already in use or passwords did not match.'
 
     return render_template('login.html',
     login_form=login_form,
-    signup_form=signup_form
+    signup_form=signup_form,
+    error_message=error_message
     )
 
 @login_required
@@ -80,7 +81,8 @@ def home():
             sqlDB.session.add(new_users_communities_assocation)
             sqlDB.session.commit()
             return redirect(url_for('app.community', community_code=temp_community.code))
-
+    for community in current_user.communities:
+        community.community.set_owner_name()
     return render_template('home.html', current_user=current_user)
 
 @login_required
@@ -101,8 +103,10 @@ def browse():
             sqlDB.session.add(new_users_communities_assocation)
             sqlDB.session.commit()
             return redirect(url_for('app.community', community_code=temp_community.code))
-
-    return render_template('browse.html', communities=communities_all)
+    for community in communities_all:
+        community.set_owner_name()
+    return render_template('browse.html',
+        communities=communities_all)
 
 @login_required
 @appBlueprint.route("/create", methods=['GET', 'POST'])
@@ -144,11 +148,13 @@ def community_text_channel(community_code, channel_code):
     temp_community = sqlDB.session.query(Community).filter_by(code=community_code).first_or_404()
     temp_channel = temp_community.text_channels.first_or_404()
     channel_dict = temp_community.get_channels()
+    is_owner=current_user.is_owner(temp_community)
     return render_template('/textchannel.html',
         current_user=current_user,
         community=temp_community,
         channel=temp_channel,
-        channel_dict=channel_dict
+        channel_dict=channel_dict,
+        is_owner=is_owner
     )
  
 

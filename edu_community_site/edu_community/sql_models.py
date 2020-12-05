@@ -75,9 +75,14 @@ class User(sqlDB.Model, UserMixin):
         filename = secure_filename(self.code + ".jpg")
         path = os.path.join(app.static_folder, 'img', 'user_avatars', filename)
         urllib.request.urlretrieve(('https://picsum.photos/200?random'), (path))
+
     def check_password(self, password):
         return check_password_hash(self.password_hash,password)
 
+    def is_owner(self, community):
+        for community_ass in self.communities:
+            if community_ass.community == community:
+                return community_ass.role == User_Community_Enum.owner
 
 class Community(sqlDB.Model):
 
@@ -102,6 +107,8 @@ class Community(sqlDB.Model):
 
     members_online = sqlDB.Column(sqlDB.Integer, index=True, unique=False, default=0)
 
+    owner_name = ''
+
     def __init__(self, name, dis):
         code = 'CO__' + uuid.uuid4().hex
         while (sqlDB.session.query(User).filter_by(code=code).first() != None):
@@ -113,11 +120,19 @@ class Community(sqlDB.Model):
         sqlDB.session.add(new_text_channel)
         self.text_channels.append(new_text_channel)
         sqlDB.session.commit()
-
+        
     def get_channels(self):
         channel_dict = {}
         channel_dict['text_channels'] = self.text_channels
         return channel_dict
+
+    def get_owner(self):
+        for user in self.users:
+            if user.role == User_Community_Enum.owner:
+                return user.user
+
+    def set_owner_name(self):
+        self.owner_name = self.get_owner().name
 
 class Text_Channel(sqlDB.Model):
 
