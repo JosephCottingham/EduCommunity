@@ -134,19 +134,18 @@ body {
 	display: flex;
 	align-items: center;
 	padding: 5px 10px;
-	margin: 0 5px;
+	margin: 10px 5px;
 	border-radius: 5px;
-	span {
-		margin-right: 10px;
-	}
-	h5 {
-		font-size: 16px;
-		margin: 0;
-		font-weight: 500;
-	}
+	margin-right: 10px;
+	font-size: 16px;
+	font-weight: 500;
 }
 
 .channels--list-content-item:hover {
+    background: gray;
+    color: white;
+}
+.active_channel {
     background: gray;
     color: white;
 }
@@ -225,7 +224,7 @@ body {
 }
 
 .messages {
-	width: calc(100% - 240px);
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	.messages--send {

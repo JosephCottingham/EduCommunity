@@ -121,9 +121,7 @@
                         <!--eng::Container-->
                         <!--begin::Footer-->
                         <div class="d-flex flex-center">
-                            <button class="btn btn-primary font-weight-bolder font-size-sm py-3 px-14"
-                                data-toggle="modal" data-target="#modal-{{ community.community.code }}">Join
-                                Community</button>
+                            <a class="btn btn-primary font-weight-bolder font-size-sm py-3 px-14" href="{{ url_for('app.community', community_code=community.community.code) }}">Open</a>
                         </div>
                         <!--end::Footer-->
                     </div>
@@ -138,33 +136,6 @@
     </div>
 </div>
 
-{% for community in current_user.communities %}
-<div class="modal fade" id="modal-{{ community.community.code }}" data-backdrop="static" tabindex="-1" role="dialog"
-    aria-labelledby="staticBackdrop" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form method="POST">
-                <input type="hidden" name="community_code" value="{{ community.community.code }}">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Join {{ community.community.name }}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i aria-hidden="true" class="ki ki-close"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light-primary font-weight-bold"
-                        data-dismiss="modal">Close</button>
-                    <button type="submit" name="community_join_submit" class="btn btn-primary font-weight-bold">Save
-                        changes</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-{% endfor %}
 {% endblock %}
 
 {% block webAppPageJS %}

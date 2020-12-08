@@ -38,15 +38,51 @@
     padding: .25rem !important;
 }
 
-.judge-select {
-    margin: 1.2em .25em;
-}
-
-.page-controls {
-    margin: 1em 1em .5em 1em;
-}
-.select-judges-modal {
-    min-width: 600px;
-}
 
 
+.navbar {
+    padding: 1.5em;
+    font-size: large;
+}
+
+hr {
+   border-top-color: white;
+}
+
+.web-header {
+    background-image: url("https://smartincentives.org/wp-content/uploads/cityscape_0.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding-top:200px;
+    padding-bottom:200px;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+}
+
+.cover {
+    object-fit: cover;
+    width: 500px;
+    height: 500px;
+  }
+
+.left {
+    padding-right: 100px;
+}
+
+.front-icon {
+    margin: auto;    
+    display: block;
+    width: 400px;
+    height: 400px;
+}
+
+.front-center-col {
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+
+.page-footer {
+    background-color: gray;
+    color: honeydew;
+}

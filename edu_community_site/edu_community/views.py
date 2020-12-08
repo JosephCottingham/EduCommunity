@@ -12,7 +12,6 @@ appBlueprint = Blueprint('app', __name__)
 @appBlueprint.route("/logout")
 def logout():
     x = logout_user()
-    print('user logout: ' + str(x))
     return redirect(url_for('app.front'))
 
 @appBlueprint.route("/login", methods=['GET','POST'])
@@ -143,18 +142,27 @@ def community(community_code):
 
 
 @login_required
-@appBlueprint.route("/c/<community_code>/t/<channel_code>")
+@appBlueprint.route("/c/<community_code>/t/<channel_code>",  methods=['GET', 'POST'])
 def community_text_channel(community_code, channel_code):
     temp_community = sqlDB.session.query(Community).filter_by(code=community_code).first_or_404()
-    temp_channel = temp_community.text_channels.first_or_404()
+    temp_channel = temp_community.text_channels.filter_by(code=channel_code).first_or_404()
     channel_dict = temp_community.get_channels()
     is_owner=current_user.is_owner(temp_community)
+    community_channel_create_form=Community_Channel_Create_Form()
+    if request.method == 'POST':
+        if community_channel_create_form.validate_on_submit() and community_channel_create_form.community_channel_create_submit.data and is_owner:
+            if int(community_channel_create_form.channel_type.data) == 0:
+                new_text_channel=Text_Channel(name=community_channel_create_form.name.data, dis=community_channel_create_form.dis.data)
+                sqlDB.session.add(new_text_channel)
+                temp_community.text_channels.append(new_text_channel)
+                sqlDB.session.commit()
     return render_template('/textchannel.html',
         current_user=current_user,
         community=temp_community,
         channel=temp_channel,
         channel_dict=channel_dict,
-        is_owner=is_owner
+        is_owner=is_owner,
+        community_channel_create_form=community_channel_create_form
     )
  
 

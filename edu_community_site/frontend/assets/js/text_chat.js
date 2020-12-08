@@ -54,6 +54,19 @@ $(document).ready(function () {
         }
     });
 
+    var disconnect_switch = document.getElementsByClassName('disconnect'); 
+    for (i = 0; i < disconnect_switch.length; ++i) {
+        disconnect_switch[i].addEventListener("click", function() {
+            console.log('disconnect');
+            socket.emit('disconnect', {
+                message: {
+                    channel_code: community_info.channel_code
+                }
+            });
+          });
+      };
+      
+
     function populate_other_user_message (msg) {
         var messagesEl = KTUtil.getById("messages-list");
         var scrollEl = KTUtil.getById("msg-scroller");
@@ -63,7 +76,7 @@ $(document).ready(function () {
 
 			var html = '';
 			html += '<div class="d-flex align-items-center">';
-            html += '	<div class="symbol symbol-circle symbol-40 mr-3">';
+            html += '	<div class="symbol symbol-circle symbol-40 mr-3" data-toggle="tooltip" data-toggle="modal" data-target="#modal-' + msg.user.code + '">';
 			html += '		<img alt="Pic" src="' + community_info.avatar_url.replace("USER_CODE",msg.user.code) + '"/>';
 			html += '	</div>';
 			html += '	<div>';
@@ -98,7 +111,7 @@ $(document).ready(function () {
         html += '		<span class="text-muted font-size-sm">' + new Date(Date.parse(msg.time)).toLocaleString() + '</span>';
         html += '		<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' + msg.user.name + '</a>';
         html += '	</div>';
-        html += '	<div class="symbol symbol-circle symbol-40 ml-3">';
+        html += '	<div class="symbol symbol-circle symbol-40 ml-3" data-toggle="modal" data-target="#modal-' + msg.user.code + '">';
         html += '		<img alt="Pic" src="' + community_info.avatar_url.replace("USER_CODE",msg.user.code) + '"/>';
         html += '	</div>';
         html += '</div>';
@@ -210,7 +223,7 @@ $(document).ready(function () {
             html += '		<span class="text-muted font-size-sm">' + new Date().getTime().toString() + '</span>';
             html += '		<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' + community_info.user_name + '</a>';
             html += '	</div>';
-            html += '	<div class="symbol symbol-circle symbol-40 ml-3">';
+            html += '	<div class="symbol symbol-circle symbol-40 ml-3" data-toggle="modal" data-target="#modal-' + msg.user.code + '" data-toggle="tooltip">';
             html += '		<img alt="Pic" src="' + community_info.avatar_url.replace("USER_CODE", community_info.user_code) + '"/>';
             html += '	</div>';
             html += '</div>';

@@ -5,11 +5,13 @@
         <div class="channels--list">
             <div class="channels--list-item">
                 <div class="channels--list-content">
-                    {% for channel in channel_dict['text_channels'] %}
-                    <a href="{{url_for('app.community_text_channel', channel_code=channel.code, community_code=channel.community.code)}}">
-                    <div class="channels--list-content-item">
+                    <h4>Text Channels</h4>
+                    <hr style="border-style: solid; border-width: 1px;">
+                    {% for temp_channel in channel_dict['text_channels'] %}
+                    <a href="{{url_for('app.community_text_channel', channel_code=temp_channel.code, community_code=temp_channel.community.code)}}">
+                    <div class="channels--list-content-item disconnect {% if temp_channel.code == channel.code %}active_channel{% endif %}">
                         <!-- <span>></span> -->
-                        <h5 style="color: black;">{{channel.name}}</h5>
+                        <h5 style="color: black;">{{temp_channel.name}}</h5>
                     </div>
                     </a>
                     {% endfor %}
@@ -37,9 +39,10 @@
                     <div class="symbol-group symbol-hover justify-content-center">
                         {% set index = 0 %}
                         {% for user in community.users if index < 5 %}
-                        <div class="symbol symbol-35 symbol-circle" data-toggle="tooltip" title="{{user.user.name}}">
+                        <div class="symbol symbol-35 symbol-circle" data-toggle="tooltip" title="{{user.user.name}}" data-toggle="modal" data-target="#modal-{{ user.user.code }}">
                             <img alt="Pic" src="{{ url_for('static', filename='img/user_avatars/'+ user.user.code +'.jpg') }}" />
                         </div>
+
                         {% set index = index + 1 %}
                         {% endfor %}
 
@@ -76,19 +79,20 @@
                                 </li>
                                 <li class="navi-separator my-3"></li>
                                 <li class="navi-item">
-                                    <a href="#" class="navi-link">
+                                    <a class="navi-link" data-toggle="modal" data-target="#modal-{{ community.code }}">
                                         <span class="navi-icon">
-                                            <i class="flaticon2-magnifier-tool"></i>
+                                            <i class="flaticon2-plus"></i>
                                         </span>
-                                        <span class="navi-text">Help</span>
+                                        <span class="navi-text">Create New Channel</span>
                                     </a>
+                                    
                                 </li>
                                 <li class="navi-item">
                                     <a href="#" class="navi-link">
                                         <span class="navi-icon">
                                             <i class="flaticon2-bell-2"></i>
                                         </span>
-                                        <span class="navi-text">Stats</span>
+                                        <span class="navi-text">Billing</span>
                                         <span class="navi-link-badge">
                                             <span
                                                 class="label label-light-danger label-rounded font-weight-bold">5</span>
@@ -118,7 +122,7 @@
             </div>
             <!--end::Body-->
             <!--begin::Footer-->
-            <div class="card-footer align-items-center">
+            <div class="card-footer align-items-center" style="margin-bottom: 7em;">
                 <!--begin::Compose-->
                 <textarea class="form-control border-0 p-0" rows="2" placeholder="Type a message"></textarea>
                 <div class="d-flex align-items-center justify-content-between mt-5">
@@ -146,7 +150,84 @@
 <div class="col-md-3 more-info-col">
 
 </div>
+<div class="modal fade" id="modal-{{ community.code }}" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="POST">
+                {{ community_channel_create_form.hidden_tag() }}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create New Channel In {{ community.name }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="font-size-h6 font-weight-bolder text-dark">Type</label>
+                        {{ community_channel_create_form.channel_type(class_="form-control form-control-solid h-auto py-6 px-6 rounded-lg", autocomplete="off") }}
+                    </div>
+                    <div class="form-group">
+                        <label class="font-size-h6 font-weight-bolder text-dark">Name</label>
+                        {{ community_channel_create_form.name(class_="form-control form-control-solid h-auto py-6 px-6 rounded-lg", autocomplete="off") }}
+                    </div>
+                    <div class="form-group">
+                        <label class="font-size-h6 font-weight-bolder text-dark">Description</label>
+                        {{ community_channel_create_form.dis(class_="form-control form-control-solid h-auto py-6 px-6 rounded-lg", autocomplete="off") }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light-primary font-weight-bold"
+                        data-dismiss="modal">Close</button>
+                    {{ community_channel_create_form.community_channel_create_submit(class_="btn btn-primary font-weight-bold disconnect") }}
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+</div>
+
+{% for user in community.users %}
+<div class="modal fade" id="modal-{{ user.user.code }}" data-backdrop="static" data-keyboard="false">
+        <!--begin::Body-->
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">User Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+        <div class="modal-body">
+            <!--begin::User-->
+            <div class="d-flex align-items-center">
+                <div class="symbol symbol-60 symbol-xxl-100 mr-5 align-self-start align-self-xxl-center">
+                    <div class="symbol-label" style="background-image:url('{{ url_for('static', filename='img/user_avatars/'+ user.user.code +'.jpg') }}')"></div>
+                    <i class="symbol-badge bg-success"></i>
+                </div>
+                <div>
+                    <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{ user.user.name }}</a>
+                    <div class="mt-2">
+                        <a href="#" class="btn btn-sm btn-primary font-weight-bold mr-2 py-2 px-3 px-xxl-5 my-1">Chat</a>
+                    </div>
+                </div>
+            </div>
+            <!--end::User-->
+            <!--begin::Contact-->
+            <div class="pt-8 pb-6">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="font-weight-bold mr-2">Email:</span>
+                    <a href="#" class="text-muted text-hover-primary">{{ user.user.email }}</a>
+                </div>
+            </div>
+            <!--end::Contact-->
+        <!--end::Body-->
+    </div>
+    </div>
+</div>
+</div>
+{% endfor %}
+
 {% endblock %}
 {% block webAppPageJS %}
 <script>
@@ -163,3 +244,7 @@
 <script type="text/javascript" src="{{ url_for('static', filename='js/text_chat.js') }}"></script>
 <!-- <script src="{{ url_for('static', filename='metronic/assets/js/pages/custom/chat/chat.js') }}"></script> -->
 {% endblock %}
+
+
+
+

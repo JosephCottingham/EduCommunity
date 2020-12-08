@@ -124,6 +124,9 @@ class Community(sqlDB.Model):
     def get_channels(self):
         channel_dict = {}
         channel_dict['text_channels'] = self.text_channels
+        print('=======')
+        print(channel_dict)
+        print('')
         return channel_dict
 
     def get_owner(self):

@@ -13,6 +13,7 @@ def joined(message):
     text_channel = sqlDB.session.query(Text_Channel).filter_by(code=message['message']['channel_code']).first()
     text_channel.community.members_online += 1
     sqlDB.session.commit()
+    print(text_channel)
     if text_channel:
         room=text_channel.mongodb_chat_history_id 
         join_room(room)
