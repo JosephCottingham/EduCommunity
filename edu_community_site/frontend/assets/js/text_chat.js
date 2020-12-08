@@ -22,6 +22,9 @@ $(document).ready(function () {
     });
 
     socket.on('message', function (data) {
+        if (data.msgs == null) {
+            return
+        }
         if (community_info.user_code == data.msg.user.code){
             populate_user_message(data.msg[index])
         } else {
@@ -30,9 +33,10 @@ $(document).ready(function () {
     });
 
     socket.on('messages', function (data) {
-        console.log(data);
+        if (data.msgs == null) {
+            return
+        }
         for(index = 0; index < Object.keys(data.msgs).length; index++) {
-
             if (community_info.user_code == data.msgs[index].user.code){
                 populate_user_message(data.msgs[index])
             } else {
@@ -75,8 +79,8 @@ $(document).ready(function () {
 			KTUtil.addClass(node, 'd-flex flex-column mb-5 align-items-start');
 
 			var html = '';
-			html += '<div class="d-flex align-items-center">';
-            html += '	<div class="symbol symbol-circle symbol-40 mr-3" data-toggle="tooltip" data-toggle="modal" data-target="#modal-' + msg.user.code + '">';
+            html += '<div class="d-flex align-items-center">';
+            html += '	<div class="symbol symbol-circle symbol-40 mr-3" data-toggle="modal" data-target="#modal-' + msg.user.code + '">';
 			html += '		<img alt="Pic" src="' + community_info.avatar_url.replace("USER_CODE",msg.user.code) + '"/>';
 			html += '	</div>';
 			html += '	<div>';
@@ -98,7 +102,7 @@ $(document).ready(function () {
 			}
     }
 
-    function populate_user_message (msg) {
+    function populate_user_message(msg) {
         var messagesEl = KTUtil.getById("messages-list");
         var scrollEl = KTUtil.getById("msg-scroller");
 
@@ -223,7 +227,7 @@ $(document).ready(function () {
             html += '		<span class="text-muted font-size-sm">' + new Date().getTime().toString() + '</span>';
             html += '		<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' + community_info.user_name + '</a>';
             html += '	</div>';
-            html += '	<div class="symbol symbol-circle symbol-40 ml-3" data-toggle="modal" data-target="#modal-' + msg.user.code + '" data-toggle="tooltip">';
+            html += '	<div class="symbol symbol-circle symbol-40 ml-3" data-toggle="modal" data-target="#modal-' + community_info.user_code + '" data-toggle="tooltip">';
             html += '		<img alt="Pic" src="' + community_info.avatar_url.replace("USER_CODE", community_info.user_code) + '"/>';
             html += '	</div>';
             html += '</div>';

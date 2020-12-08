@@ -1,60 +1,36 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Home - EduCommunity</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic">
-    <link rel="stylesheet" href="assets/icons/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/icons/simple-line-icons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-
-    <link href="assets/metronic/assets/css/themes/layout/header/base/light.css" rel="stylesheet" type="text/css" />
-    <link href="assets/metronic/assets/css/themes/layout/header/menu/light.css" rel="stylesheet" type="text/css" />
-    <link href="assets/metronic/assets/css/themes/layout/brand/dark.css" rel="stylesheet" type="text/css" />
-    <link href="assets/metronic/assets/css/themes/layout/aside/dark.css" rel="stylesheet" type="text/css" />
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-
-<body>
-    <nav class="navbar navbar-light navbar-expand bg-light navigation-clean">
-        <div class="container"><a class="navbar-brand" href="#">EduCommunity</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"></button>
-            <div class="collapse navbar-collapse" id="navcol-1"><a class="btn btn-primary ml-auto" role="button" href="{{url_for('app.login')}}">Sign In</a></div>
-        </div>
-    </nav>
-    <div class="jumbotron jumbotron-fluid web-header">
+{% extends "base.html" %}
+{% block pageCSS %}
+{% endblock %}
+{% block contents %}
+<div class="jumbotron jumbotron-fluid web-header">
     <div class="container" >
-      <h1 class="display-4">Create & Join 21st Century Communities</h1>
-      <p class="lead"></p>
+        <a class="btn btn-lg sign-in-btn" role="button" href="{{url_for('app.login')}}" style="margin-left: auto; margin-right: auto;">Sign In</a>
     </div>
   </div>
   <div class="container mb-5 mt-5">
     <div class="row">
       <div class="col-lg-4">
-        <h3>Make Friends</h3>
+        <h2 class="col-header">Make Friends</h2>
         <p class="lead">
             Cultivate friends
         </p>
         <img class="front-icon" src="{{ url_for('static', filename='img/friends.png') }}" alt="">
       </div>
       <div class="col-lg-4 front-center-col">
-        <h3>Learn new Skills</h3>
+        <h2 class="col-header">Innovative</h2>
+        <p class="lead">
+            Cultivate the future with you new friends and skills.
+        </p>
+        <img class="front-icon" src="{{ url_for('static', filename='img/innovative.png') }}" alt="">
+
+      </div>
+      <div class="col-lg-4">
+        <h2 class="col-header">Gain New Skills</h2>
         <p class="lead">
             Cultivate your mind with the best instructors
         </p>
         <img class="front-icon" src="{{ url_for('static', filename='img/skills.png') }}" alt="">
 
-      </div>
-      <div class="col-lg-4">
-        <h3>Innovative</h3>
-        <p class="lead">
-            Cultivate the future with you new friends and skills.
-        </p>
-        <img class="front-icon" src="{{ url_for('static', filename='img/innovative.png') }}" alt="">
 
       </div>
     </div>
@@ -66,4 +42,4 @@
     <p>&copy; Joseph Cottingham · <a href="https://github.com/JosephCottingham">Github</a> · <a href="https://www.linkedin.com/in/joseph-cottingham/">LinkedIn</a></p>
         <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
   </footer>
-</html>
+{% endblock %}

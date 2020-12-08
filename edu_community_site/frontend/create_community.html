@@ -1,6 +1,17 @@
 {% extends "base.html" %}
+{% block pageCSS %}
+<link href="{{ url_for('static', filename='css/createcommunity.css') }}" rel="stylesheet"/>
+{% endblock %}
+
 {% block contents %}
-<form class="form" method="POST">
+
+<div class="container" style="width: 60%;">
+    <div class="header">
+        <h1>Create a New Community</h1>
+    </div>
+    <hr style="border-style: solid; border-width: 1px;">
+
+    <form class="form" method="POST">
     {{ community_create_form.hidden_tag() }}
     <div class="card-body">
         <div class="form-group">
@@ -21,9 +32,10 @@
             </div>
         </div>
     </div>
-    <div class="card-footer">
-        {{ community_create_form.community_create_submit(class_="btn btn-primary mr-2") }}
-        <button type="reset" class="btn btn-secondary">Cancel</button>
+    <div class="form-group text-center">
+        {{ community_create_form.community_create_submit(class_="btn btn-primary btn-lg") }}
     </div>
+
 </form>
+</div>
 {% endblock %}
