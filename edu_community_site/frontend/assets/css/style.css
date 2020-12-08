@@ -11,6 +11,7 @@
     min-width: 500px;
 }
 
+
 .card-event-top-teams {
     margin: 1em;
     min-width: 400px; 
@@ -50,14 +51,36 @@ hr {
 }
 
 .web-header {
-    background-image: url("https://smartincentives.org/wp-content/uploads/cityscape_0.png");
+    background-image: url("https://pixeljoint.com/files/icons/full/nirmanacity.gif");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     padding-top:200px;
     padding-bottom:200px;
-    font-family: 'Ubuntu', sans-serif;
+}
+
+.sign-in-btn {
+    min-width: 400px;
+    min-height: 100px;
+    margin-left: 7em;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    font-size: 2.5em;
     font-weight: bold;
+    background-color:  #3699FF;
+    color: white;
+}
+
+.lead {
+    text-align: center;
+    margin: 0em 2em 2em 3em;
+}
+
+.col-header {
+    text-align: center;
+    margin: 2em 2em 0em 3em;
+
 }
 
 .cover {
@@ -71,7 +94,8 @@ hr {
 }
 
 .front-icon {
-    margin: auto;    
+    margin: auto; 
+    margin-top: 3em;   
     display: block;
     width: 400px;
     height: 400px;

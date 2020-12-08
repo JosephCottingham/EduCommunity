@@ -1,0 +1,9 @@
+.header {
+    color: grey;
+    margin: 2em;
+}
+
+.btn-lg {
+    width: 300px;
+    height: 50px;
+}
