@@ -1,0 +1,88 @@
+.container, .container-lg, .container-md, .container-sm, .container-xl {
+    max-width: 1920px;
+}
+
+.secondary-nav-col {
+    margin-top: 1em;
+}
+
+.card-event-schedule {
+    margin: 1em;
+    min-width: 500px;
+}
+
+.card-event-top-teams {
+    margin: 1em;
+    min-width: 400px; 
+}
+.card-event-info{
+    margin: 1em;
+}
+.card-outstanding {
+    margin: 1em;    
+}
+
+.ballot-list {
+    margin: 1em;
+}
+
+.team-summery {
+    margin: 1em;
+}
+.grouping-card {
+    min-height: 330px;
+    max-height: 330px;
+    min-width: 350px;
+}
+.grouping-card-body {
+    padding: .25rem !important;
+}
+
+
+
+.navbar {
+    padding: 1.5em;
+    font-size: large;
+}
+
+hr {
+   border-top-color: white;
+}
+
+.web-header {
+    background-image: url("https://smartincentives.org/wp-content/uploads/cityscape_0.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding-top:200px;
+    padding-bottom:200px;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+}
+
+.cover {
+    object-fit: cover;
+    width: 500px;
+    height: 500px;
+  }
+
+.left {
+    padding-right: 100px;
+}
+
+.front-icon {
+    margin: auto;    
+    display: block;
+    width: 400px;
+    height: 400px;
+}
+
+.front-center-col {
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+
+.page-footer {
+    background-color: gray;
+    color: honeydew;
+}

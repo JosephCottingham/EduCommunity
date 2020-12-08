@@ -1,6 +1,7 @@
-{% extends "navbar.html" %}
+{% extends "base.html" %}
 {% block contents %}
-<form class="form">
+<form class="form" method="POST">
+    {{ community_create_form.hidden_tag() }}
     <div class="card-body">
         <div class="form-group">
             <label>Name:</label>

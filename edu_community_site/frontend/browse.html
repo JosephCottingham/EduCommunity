@@ -5,11 +5,11 @@
 {% block webAppPageContent %}
 <div class="col-md-11 content-col">
     <div class="row">
-        <h3 class="channel-header">Home</h3>
+        <h3 class="channel-header">Browse</h3>
     </div>
     <hr style="border-top: 3px solid; color: #838383;">
     <div class="row">
-        {% for community in current_user.communities %}
+        {% for community in communities %}
         <div class="col-md-4">
             <!--begin::Nav Panel Widget 4-->
             <div class="card card-custom card-stretch gutter-b">
@@ -23,14 +23,14 @@
                             <div class="d-flex flex-column flex-center">
                                 <!--begin::Image-->
                                 <div class="bgi-no-repeat bgi-size-cover rounded min-h-180px w-100"
-                                    style="background-image: url(https://picsum.photos/seed/{{ community.community.code }}/600/400)"></div>
+                                style="background-image: url(https://picsum.photos/seed/{{ community.code }}/600/400)"></div>
                                 <!--end::Image-->
                                 <!--begin::Title-->
                                 <a href="#"
-                                    class="card-title font-weight-bolder text-dark-75 text-hover-primary font-size-h4 m-0 pt-7 pb-1">{{ community.community.name }}</a>
+                                    class="card-title font-weight-bolder text-dark-75 text-hover-primary font-size-h4 m-0 pt-7 pb-1">{{ community.name }}</a>
                                 <!--end::Title-->
                                 <!--begin::Text-->
-                                <div class="font-weight-bold text-dark-50 font-size-sm pb-7">{{ community.community.owner_name }}
+                                <div class="font-weight-bold text-dark-50 font-size-sm pb-7">{{ community.owner_name }}
                                 </div>
                                 <!--end::Text-->
                             </div>
@@ -73,7 +73,7 @@
                                     <!--end::Text-->
                                     <!--begin::label-->
                                     <span
-                                        class="font-weight-bolder label label-xl label-light-success label-inline px-3 py-5 min-w-45px">{{ community.community.users|length }}</span>
+                                        class="font-weight-bolder label label-xl label-light-success label-inline px-3 py-5 min-w-45px">{{ community.users|length }}</span>
                                     <!--end::label-->
                                 </div>
                                 <!--end::Item-->
@@ -111,7 +111,7 @@
                                     <!--end::Text-->
                                     <!--begin::label-->
                                     <span
-                                        class="font-weight-bolder label label-xl label-light-danger label-inline px-3 py-5 min-w-45px">{{community.community.members_online}}</span>
+                                        class="font-weight-bolder label label-xl label-light-danger label-inline px-3 py-5 min-w-45px">{{community.members_online}}</span>
                                     <!--end::label-->
                                 </div>
                                 <!--end::Item-->
@@ -121,7 +121,9 @@
                         <!--eng::Container-->
                         <!--begin::Footer-->
                         <div class="d-flex flex-center">
-                            <a class="btn btn-primary font-weight-bolder font-size-sm py-3 px-14" href="{{ url_for('app.community', community_code=community.community.code) }}">Open</a>
+                            <button class="btn btn-primary font-weight-bolder font-size-sm py-3 px-14"
+                                data-toggle="modal" data-target="#modal-{{ community.code }}">Join
+                                Community</button>
                         </div>
                         <!--end::Footer-->
                     </div>
@@ -132,10 +134,34 @@
             <!--end::Nav Panel Widget 4-->
         </div>
         {% endfor %}
-
     </div>
 </div>
-
+{% for community in communities %}
+<div class="modal fade" id="modal-{{ community.code }}" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="POST">
+                <input type="hidden" name="community_code" value="{{ community.code }}">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Join {{ community.name }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light-primary font-weight-bold"
+                        data-dismiss="modal">Close</button>
+                    <button type="submit" name="community_join_submit" class="btn btn-primary font-weight-bold">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
 {% endblock %}
 
 {% block webAppPageJS %}

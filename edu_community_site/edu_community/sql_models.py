@@ -1,3 +1,4 @@
+import os
 from flask_login import UserMixin
 from flask_login import current_user
 from sqlalchemy.orm import relationship, subqueryload, lazyload
@@ -5,19 +6,20 @@ from werkzeug.security import generate_password_hash,check_password_hash
 from datetime import datetime, timedelta
 import uuid, random, copy
 from enum import Enum
-from edu_community import login_manager, sqlDB
+from edu_community import login_manager, sqlDB, mongoDB, app
+import urllib
+from werkzeug.utils import secure_filename
 
 @login_manager.user_loader
-def load_user(user_code):
-    return sqlDB.session.query(User).filter_by(code=user_code).first()
+def load_user(user_id):
+    return sqlDB.session.query(User).get(user_id)
 
 class User_Community_Enum(Enum):
     member = 0
     mode = 1
     owner = 2
 
-
-
+ 
 
 communities_community_tags = sqlDB.Table("communities_community_tags", 
     sqlDB.Column("community_id", sqlDB.Integer, sqlDB.ForeignKey("communities.id")), 
@@ -25,18 +27,12 @@ communities_community_tags = sqlDB.Table("communities_community_tags",
 )
 
 class Users_Communities_Assocation(sqlDB.Model):
-
-    __tablename__ = 'users_communities_joining'
-
-    id = sqlDB.Column(sqlDB.Integer, primary_key = True, autoincrement=True)
-
-    user_id = sqlDB.Column(sqlDB.Integer, sqlDB.ForeignKey("users.id"), primary_key=True),
-    community_id = sqlDB.Column(sqlDB.Integer, sqlDB.ForeignKey("communities.id"), primary_key=True),
-    user = relationship('User', back_populates='communities')
-    department = relationship('Community', back_populates='users')
-
+    __tablename__ = 'users_communities_assocations'
+    user_id = sqlDB.Column(sqlDB.Integer, sqlDB.ForeignKey("users.id"), primary_key=True)
+    community_id = sqlDB.Column(sqlDB.Integer, sqlDB.ForeignKey("communities.id"), primary_key=True)
     role = sqlDB.Column(sqlDB.Enum(User_Community_Enum), index=False, nullable=False, default=User_Community_Enum.member)
-
+    user = sqlDB.relationship('User', back_populates='communities')
+    community = sqlDB.relationship('Community', back_populates='users')
 
     def __init__(self, user, community, role=User_Community_Enum.member):
         """
@@ -65,7 +61,7 @@ class User(sqlDB.Model, UserMixin):
     password_hash = sqlDB.Column(sqlDB.String(128), index=True)
     password_clear = sqlDB.Column(sqlDB.String(128), index=True)
 
-    communities = sqlDB.relationship('Community', back_populates='users', secondary='users_communities_joining')
+    communities = sqlDB.relationship('Users_Communities_Assocation', back_populates='user')
 
     def __init__(self, email, password, name):
         code = 'US__' + uuid.uuid4().hex
@@ -76,11 +72,17 @@ class User(sqlDB.Model, UserMixin):
         self.email = email
         self.password_hash = generate_password_hash(password)
         self.password_clear = password
+        filename = secure_filename(self.code + ".jpg")
+        path = os.path.join(app.static_folder, 'img', 'user_avatars', filename)
+        urllib.request.urlretrieve(('https://picsum.photos/200?random'), (path))
 
     def check_password(self, password):
         return check_password_hash(self.password_hash,password)
 
-
+    def is_owner(self, community):
+        for community_ass in self.communities:
+            if community_ass.community == community:
+                return community_ass.role == User_Community_Enum.owner
 
 class Community(sqlDB.Model):
 
@@ -97,26 +99,43 @@ class Community(sqlDB.Model):
     name = sqlDB.Column(sqlDB.String(64), index=True, unique=False)
     dis = sqlDB.Column(sqlDB.Text(), index=True, unique=False)
 
-    users = sqlDB.relationship("User", back_populates="communities", secondary='users_communities_joining')
+    users = sqlDB.relationship('Users_Communities_Assocation', back_populates='community')
+
     community_tags = sqlDB.relationship("Community_Tag", back_populates="communities", secondary=communities_community_tags)
 
+    text_channels = sqlDB.relationship('Text_Channel', back_populates='community', lazy='dynamic')
 
-    text_channels_id = sqlDB.Column(sqlDB.Integer, sqlDB.ForeignKey('text_channels.id'))
-    text_channels = sqlDB.relationship('Text_Channel', back_populates='community')
+    members_online = sqlDB.Column(sqlDB.Integer, index=True, unique=False, default=0)
 
-    def __init__(self, name, dis, owner):
+    owner_name = ''
+
+    def __init__(self, name, dis):
         code = 'CO__' + uuid.uuid4().hex
         while (sqlDB.session.query(User).filter_by(code=code).first() != None):
             code = 'CO__' + uuid.uuid4().hex
         self.code = code   
         self.name = name
         self.dis = dis
-        users_communities_assocation = Users_Communities_Assocation(user=owner, community=self, role=User_Community_Enum.owner)
-        sqlDB.session.add(users_communities_assocation)
         new_text_channel = Text_Channel('general', 'general')
         sqlDB.session.add(new_text_channel)
-        text_channels.append(new_text_channel)
+        self.text_channels.append(new_text_channel)
         sqlDB.session.commit()
+        
+    def get_channels(self):
+        channel_dict = {}
+        channel_dict['text_channels'] = self.text_channels
+        print('=======')
+        print(channel_dict)
+        print('')
+        return channel_dict
+
+    def get_owner(self):
+        for user in self.users:
+            if user.role == User_Community_Enum.owner:
+                return user.user
+
+    def set_owner_name(self):
+        self.owner_name = self.get_owner().name
 
 class Text_Channel(sqlDB.Model):
 
@@ -133,7 +152,10 @@ class Text_Channel(sqlDB.Model):
     name = sqlDB.Column(sqlDB.String(64), index=True, unique=False)
     dis = sqlDB.Column(sqlDB.Text(), index=True, unique=False)
 
+    community_id = sqlDB.Column(sqlDB.Integer, sqlDB.ForeignKey('communities.id'))
     community = sqlDB.relationship('Community', back_populates='text_channels')
+
+    mongodb_chat_history_id = sqlDB.Column(sqlDB.String(64), index=False, unique=True)
 
     def __init__(self, name, dis):
         code = 'TC__' + uuid.uuid4().hex
@@ -142,6 +164,8 @@ class Text_Channel(sqlDB.Model):
         self.code = code   
         self.name = name
         self.dis = dis
+        new_document = mongoDB.channel_messages.insert_one({'msgs' : []})
+        self.mongodb_chat_history_id = str(new_document.inserted_id)
 
 class Community_Tag(sqlDB.Model):
 

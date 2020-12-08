@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<script>
+    let community_code = "{{ community_code }}";
+</script>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!--begin::Global Theme Styles(used by all pages)-->
+    <link href="{{ url_for('static', filename='metronic/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ url_for('static', filename='metronic/assets/plugins/custom/prismjs/prismjs.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ url_for('static', filename='metronic/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ url_for('static', filename='metronic/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <!--begin::Layout Themes(used by all pages)-->
+    <link href="{{ url_for('static', filename='metronic/assets/css/themes/layout/header/base/light.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ url_for('static', filename='metronic/assets/css/themes/layout/header/menu/light.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ url_for('static', filename='metronic/assets/css/themes/layout/brand/dark.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ url_for('static', filename='metronic/assets/css/themes/layout/aside/dark.css') }}" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet"/>
+    {% block pageCSS %}
+    
+    {% endblock %}
+    <title></title>
+</head>
+
+<body class="{% block bodyClass %}{% endblock %}" id="theBody">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Edu Community</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('app.front')}}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('app.create_community')}}">Create <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('app.logout')}}">Logout <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+    </nav>
+
+        {% block contents %}
+        {% endblock %}
+</body>
+        <script>
+            $(document).ready(function () {
+                if ($(document).height() > $(window).height()) {
+                    $('#footer').css('position', 'relative');
+                }
+            });
+        </script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>        <!--begin::Global Theme Bundle(used by all pages)-->
+        <script>var KTAppSettings = { "breakpoints": { "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1400 }, "colors": { "theme": { "base": { "white": "#ffffff", "primary": "#3699FF", "secondary": "#E5EAEE", "success": "#1BC5BD", "info": "#8950FC", "warning": "#FFA800", "danger": "#F64E60", "light": "#E4E6EF", "dark": "#181C32" }, "light": { "white": "#ffffff", "primary": "#E1F0FF", "secondary": "#EBEDF3", "success": "#C9F7F5", "info": "#EEE5FF", "warning": "#FFF4DE", "danger": "#FFE2E5", "light": "#F3F6F9", "dark": "#D6D6E0" }, "inverse": { "white": "#ffffff", "primary": "#ffffff", "secondary": "#3F4254", "success": "#ffffff", "info": "#ffffff", "warning": "#ffffff", "danger": "#ffffff", "light": "#464E5F", "dark": "#ffffff" } }, "gray": { "gray-100": "#F3F6F9", "gray-200": "#EBEDF3", "gray-300": "#E4E6EF", "gray-400": "#D1D3E0", "gray-500": "#B5B5C3", "gray-600": "#7E8299", "gray-700": "#5E6278", "gray-800": "#3F4254", "gray-900": "#181C32" } }, "font-family": "Poppins" };</script>
+        <script src="{{ url_for('static', filename='metronic/assets/plugins/global/plugins.bundle.js') }}"></script>
+        <script src="{{ url_for('static', filename='metronic/assets/plugins/custom/prismjs/prismjs.bundle.js') }}"></script>
+        <script src="{{ url_for('static', filename='metronic/assets/js/scripts.bundle.js') }}"></script>
+        <!--end::Global Theme Bundle-->
+        {% block pageJS %}
+        {% endblock %}
+
+</html>

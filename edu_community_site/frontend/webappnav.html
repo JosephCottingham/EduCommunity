@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block pageCSS %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/textchannel.css') }}">
+    {% block webAppPageCSS %}
+        
+    {% endblock %}
+{% endblock %}
+{% block contents %}
+<div class="row" data-sticky-container="" style="width: 100%;">
+    <div class="col- communities-col app">
+        <div class="server-list">
+            <a href="{{ url_for('app.home') }}">
+            <div class="server--icon disconnect">
+                <span><img src="/assets/icons/home-icon.svg" alt="Kiwi standing on oval"></span>
+            </div>
+        </a>
+            <div class="server--seperator disconnect"></div>
+            <a href="{{ url_for('app.settings') }}">
+            <div class="server--icon active">
+                <span><img src="/assets/icons/setting-icon.svg" alt="Kiwi standing on oval"></span>
+            </div>
+        </a>
+            <a href="{{ url_for('app.browse') }}">
+            <div class="server--icon disconnect">
+                <span><img src="/assets/icons/explore-icon.svg" alt="Kiwi standing on oval"></span>
+            </div>
+            </a>
+            {% for community in current_user.communities %}
+            <a href="{{ url_for('app.community', community_code=community.community.code) }}">
+            <div class="server--icon disconnect">
+                <span>{{ community.community.name }}</span>
+            </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% block webAppPageContent %}
+    {% endblock %}
+
+</div>
+{% endblock %}
+{% block pageJS %}
+    {% block webAppPageJS %}
+        
+    {% endblock %}
+{% endblock %}
