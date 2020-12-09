@@ -28,7 +28,7 @@
             {% for community in current_user.communities %}
             <a href="{{ url_for('app.community', community_code=community.community.code) }}">
             <div class="server--icon disconnect">
-                <span>{{ community.community.name }}</span>
+                <span>{{ community.community.abrv_name }}</span>
             </div>
             </a>
             {% endfor %}
