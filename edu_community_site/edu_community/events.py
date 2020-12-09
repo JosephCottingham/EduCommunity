@@ -1,10 +1,10 @@
-from edu_community import socketio, mongoDB, sqlDB
+from edu_community_site.edu_community import socketio, mongoDB, sqlDB
 from flask import session
 from flask_login import current_user
 from datetime import datetime
 from bson import json_util 
 from flask_socketio import emit, join_room, leave_room, rooms
-from edu_community.sql_models import *
+from edu_community_site.edu_community.sql_models import *
 from bson.objectid import ObjectId
 
 @socketio.on('joined', namespace='/text_channel')
