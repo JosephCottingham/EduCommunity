@@ -57,11 +57,11 @@ sqlDB.session.commit()
 ###########################
 #### BLUEPRINT CONFIGS ####
 #########################
-from edu_community.views import appBlueprint
+from edu_community_site.edu_community.views import appBlueprint
 app.register_blueprint(appBlueprint)
 
 socketio = SocketIO(app, cors_allowed_origins="*")
-import edu_community.events
+import edu_community_site.edu_community.events
 
 
 ###########################

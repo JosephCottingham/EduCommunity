@@ -1,4 +1,4 @@
-from edu_community import app
+from edu_community_site.edu_community import app as application
 
 if __name__ == "__main__":
-   app.run(debug=True, port=5000)
+   application.run(debug=True, port=5000)
