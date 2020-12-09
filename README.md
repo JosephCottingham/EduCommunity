@@ -1,6 +1,6 @@
 # EduCommunity
 
-MP3Wizard is a android application that focuses on giving access to cloud stoarge/downloaded audio content. This application is designed to be used with any form of long audio content such as audiobooks.
+EduCommunity is a WebApp with a backend written in Flask. This project utilizes SocketIO to have live messaging.
 <br/><br/>
 <img src="ProjectImg/Home.png" width="1000">
 <br/><br/>
