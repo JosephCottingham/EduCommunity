@@ -37,7 +37,6 @@ def login():
                 return redirect(url_for('app.home'))
             else:
                 error_message='Email already in use or passwords did not match.'
-
     return render_template('login.html',
     login_form=login_form,
     signup_form=signup_form,
@@ -59,6 +58,8 @@ def settings():
                 request.files.get('profile_avatar').save(path)
                 return redirect(url_for('app.settings'))
     user_settings_form.name.data = current_user.name
+    for community in current_user.communities:
+        community.community.set_abrv_name()
     return render_template('settings.html',
         current_user=current_user,
         user_settings_form=user_settings_form)
@@ -82,6 +83,8 @@ def home():
             return redirect(url_for('app.community', community_code=temp_community.code))
     for community in current_user.communities:
         community.community.set_owner_name()
+    for community in current_user.communities:
+        community.community.set_abrv_name()
     return render_template('home.html', current_user=current_user)
 
 @login_required
@@ -104,6 +107,8 @@ def browse():
             return redirect(url_for('app.community', community_code=temp_community.code))
     for community in communities_all:
         community.set_owner_name()
+    for community in communities_all:
+        community.set_abrv_name()
     return render_template('browse.html',
         communities=communities_all)
 
@@ -156,6 +161,8 @@ def community_text_channel(community_code, channel_code):
                 sqlDB.session.add(new_text_channel)
                 temp_community.text_channels.append(new_text_channel)
                 sqlDB.session.commit()
+    for community in current_user.communities:
+        community.community.set_abrv_name()
     return render_template('/textchannel.html',
         current_user=current_user,
         community=temp_community,

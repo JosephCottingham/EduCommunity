@@ -109,6 +109,8 @@ class Community(sqlDB.Model):
 
     owner_name = ''
 
+    abrv_name = ''
+
     def __init__(self, name, dis):
         code = 'CO__' + uuid.uuid4().hex
         while (sqlDB.session.query(User).filter_by(code=code).first() != None):
@@ -136,6 +138,12 @@ class Community(sqlDB.Model):
 
     def set_owner_name(self):
         self.owner_name = self.get_owner().name
+
+    def set_abrv_name(self):
+        word_list = self.name.split(' ')
+        self.abrv_name = ''
+        for word in word_list:
+            self.abrv_name+=word[0].upper()
 
 class Text_Channel(sqlDB.Model):
 
