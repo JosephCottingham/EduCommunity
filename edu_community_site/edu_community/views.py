@@ -3,7 +3,7 @@ from flask_login import logout_user, login_user, current_user, login_required
 from flask import Flask, render_template, redirect, url_for, Blueprint, flash, request
 from .sql_models import *
 from .forms import *
-from edu_community import sqlDB, app
+from edu_community_site.edu_community import sqlDB, app
 from werkzeug.utils import secure_filename
 
 appBlueprint = Blueprint('app', __name__)

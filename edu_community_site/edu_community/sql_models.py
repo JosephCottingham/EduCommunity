@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash,check_password_hash
 from datetime import datetime, timedelta
 import uuid, random, copy
 from enum import Enum
-from edu_community import login_manager, sqlDB, mongoDB, app
+from edu_community_site.edu_community import login_manager, sqlDB, mongoDB, app
 import urllib
 from werkzeug.utils import secure_filename
 
